@@ -62,7 +62,10 @@
     "lang": "en",
     "ignoreCapitalization": true,
     "dictionary": [
-      "WebP"
+      "WebP",
+      "PostCSS",
+      "JS",
+      "WebP in"
     ]
   }
 }
