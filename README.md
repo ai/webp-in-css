@@ -1,7 +1,7 @@
-# WebP CSS
-
 <img src="https://ai.github.io/webp-css/webp-logo.svg" align="right"
-     alt="WebP logo" width="180" height="">
+     alt="WebP logo" width="150" height="180">
+
+# WebP CSS
 
 PostCSS plugin and tiny JS script (128 B) to use WebP in CSS `background`.
 
