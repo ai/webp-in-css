@@ -112,6 +112,14 @@ module.exports = {
 }
 ```
 
+We also recommend to put all images from CSS to preload content:
+
+```diff html
++   <link rel="preload" as="image" type="image/webp" href="/logo.webp">
+    <script><%= readFile('node_modules/webp-css/index.js') %></script>
+  </head>
+```
+
 [postcss-loader]: https://github.com/postcss/postcss-loader#usage
 [gulp-postcss]: https://github.com/postcss/gulp-postcss
 [Squoosh]: https://squoosh.app/
