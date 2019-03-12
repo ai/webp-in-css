@@ -1,5 +1,8 @@
 # WebP CSS
 
+<img src="https://ai.github.io/webp-css/webp-logo.svg" align="right"
+     alt="WebP logo" width="180" height="">
+
 PostCSS plugin and tiny JS script (128 B) to use WebP in CSS `background`.
 
 You add `require('webp-css')` to your JS bundle and write CSS like:
