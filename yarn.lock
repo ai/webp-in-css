@@ -4597,6 +4597,11 @@ nan@^2.9.2:
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.12.1.tgz#7b1aa193e9aa86057e3c7bbd0ac448e770925552"
   integrity sha512-JY7V6lRkStKcKTvHO5NVSQRv+RV+FIL5pvDoLiAtSL9pKlC5x9PKQcZDsq7m4FO4d57mkhC6Z+QhAh3Jdk5JFw==
 
+nanodelay@^0.1.4:
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/nanodelay/-/nanodelay-0.1.4.tgz#1cc7e37ac10d107ca009b4803a25c8474ca636bf"
+  integrity sha512-HffnJWkIKNyFxPNoeAM3CkHXQMNLk8rQUqGIQuUduoHwOYjx4ILeGv1z6sdHaDis8oIXi85MfyAC3d/R5jT96Q==
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
