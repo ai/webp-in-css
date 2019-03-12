@@ -16,7 +16,7 @@ Object.defineProperty(global.Image.prototype, 'src', {
   }
 })
 
-require('./index')
+require('./index.src')
 
 it('adds class to body', function () {
   return delay(100).then(function () {

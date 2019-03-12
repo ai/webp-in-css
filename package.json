@@ -38,6 +38,7 @@
     "lint-staged": "^8.1.5",
     "nanodelay": "^0.1.4",
     "size-limit": "^0.21.1",
+    "terser": "^3.17.0",
     "yaspeller-ci": "^1.0.0"
   },
   "size-limit": [
@@ -49,7 +50,14 @@
   "eslintConfig": {
     "extends": "@logux/eslint-config/browser"
   },
+  "eslintIgnore": [
+    "index.js"
+  ],
   "lint-staged": {
+    "index.src.js": [
+      "terser -o index.js",
+      "git add index.js"
+    ],
     "*.md": "yaspeller-ci",
     "*.js": "eslint"
   },

@@ -8,3 +8,5 @@ yarn.lock
 coverage/
 .travis.yml
 *.test.js
+
+*.src.js
