@@ -17,6 +17,9 @@
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
   "license": "MIT",
   "repository": "ai/webp-css",
+  "dependencies": {
+    "postcss": "^7.0.14"
+  },
   "devDependencies": {
     "@logux/eslint-config": "^27.0.0",
     "clean-publish": "^1.1.0",
