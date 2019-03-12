@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/webp-css/webp-logo.svg" align="right"
      alt="WebP logo" width="150" height="180">
 
-[PostCSS] plugin and tiny JS script (128 B) to use [WebP] in CSS `background`.
+[PostCSS] plugin and tiny JS script (128 bytes) to use [WebP] in CSS `background`.
 
 It will make your images [25% smaller] for Chrome, Firefox, and Edge.
 Safari will download bigger JPEG/PNG image.
@@ -82,6 +82,14 @@ yarn add --dev webp-css
 + require('webp-css')
 ```
 
+Since JS script is very small (128 bytes), the best way for landings
+is to inline it to HTML:
+
+```diff html
++   <script><%= readFile('node_modules/webp-css/index.js') %></script>
+  </head>
+```
+
 **Step 5:** check do you use PostCSS already in your bundler.
 You can check `postcss.config.js` in the project root,
 `"postcss"` section in `package.sjson` or `postcss` in bundle config.
@@ -98,7 +106,7 @@ If you doesn’t have it already, add PostCSS to your bundle:
 ```diff js
 module.exports = {
   plugins: [
-+   require('webp-css/plugin')
++   require('webp-css/plugin'),
     require('autoprefixer')
   ]
 }
