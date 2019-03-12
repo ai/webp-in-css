@@ -3,7 +3,10 @@
 <img src="https://ai.github.io/webp-css/webp-logo.svg" align="right"
      alt="WebP logo" width="150" height="180">
 
-PostCSS plugin and tiny JS script (128 B) to use WebP in CSS `background`.
+[PostCSS] plugin and tiny JS script (128 B) to use [WebP] in CSS `background`.
+
+It will make your images [25% smaller] for Chrome, Firefox, and Edge.
+Safari will download bigger JPEG/PNG image.
 
 You add `require('webp-css')` to your JS bundle and write CSS like:
 
@@ -31,18 +34,11 @@ body.no-webp .logo {
 }
 ```
 
+[25% smaller]: https://developers.google.com/speed/webp/docs/webp_lossless_alpha_study#results
+[PostCSS]: https://github.com/postcss/postcss
+[WebP]: https://en.wikipedia.org/wiki/WebP
+
 <a href="https://evilmartians.com/?utm_source=webp-css">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
-
-
-## WebP
-
-WebP is a new image format to replace JPEG and PNG. It generates 30-50% smaller
-images.
-
-It is supported by Chrome, Firefox, and Edge. But you still need old
-JPEG/PNG images for Safari.  In HTML you can use `<picture>` tag to use WebP
-in modern browsers and JPEG/PNG in Safari. But for CSS `url()` you need
-a more tricky way.
