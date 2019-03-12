@@ -11,7 +11,7 @@
   ],
   "scripts": {
     "spell": "yaspeller-ci *.md",
-    "lint": "eslint-ci *.js",
+    "lint": "eslint-ci plugin.js *.test.js",
     "test": "jest --coverage && yarn lint && size-limit && yarn spell"
   },
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
@@ -30,6 +30,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jest": "^22.3.2",
     "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-prefer-let": "^1.0.1",
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.0",
@@ -38,7 +39,6 @@
     "lint-staged": "^8.1.5",
     "nanodelay": "^0.1.4",
     "size-limit": "^0.21.1",
-    "terser": "^3.17.0",
     "yaspeller-ci": "^1.0.0"
   },
   "size-limit": [
@@ -48,16 +48,12 @@
     }
   ],
   "eslintConfig": {
-    "extends": "@logux/eslint-config/browser"
+    "extends": "@logux/eslint-config/node"
   },
   "eslintIgnore": [
     "index.js"
   ],
   "lint-staged": {
-    "index.src.js": [
-      "terser -o index.js",
-      "git add index.js"
-    ],
     "*.md": "yaspeller-ci",
     "*.js": "eslint"
   },

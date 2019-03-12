@@ -1,12 +1,12 @@
-var postcss = require('postcss')
+let postcss = require('postcss')
 
-var plugin = require('./plugin')
+let plugin = require('./plugin')
 
 function run (input, output) {
   expect(postcss([plugin]).process(input).css).toEqual(output)
 }
 
-it('adds classes and WebP link', function () {
+it('adds classes and WebP link', () => {
   run(
     '@media screen { a, b { color: black; background: url(./image.jpg) } }',
     '@media screen { ' +
@@ -17,7 +17,7 @@ it('adds classes and WebP link', function () {
   )
 })
 
-it('removes empty rule', function () {
+it('removes empty rule', () => {
   run(
     'a,b { background: url(./image.PNG) }',
     'body.no-webp a,body.no-webp b { background: url(./image.PNG) }' +

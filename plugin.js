@@ -1,30 +1,26 @@
-var postcss = require('postcss')
+let postcss = require('postcss')
 
-module.exports = postcss.plugin('webp-css/plugin', function () {
-  return function (root) {
-    root.walkDecls(function (decl) {
+module.exports = postcss.plugin('webp-css/plugin', () => {
+  return root => {
+    root.walkDecls(decl => {
       if (/\.(jpg|png)/i.test(decl.value)) {
-        var rule = decl.parent
+        let rule = decl.parent
         if (rule.selector.indexOf('.no-webp') !== -1) return
 
-        var webp = rule.cloneAfter()
-        webp.each(function (i) {
+        let webp = rule.cloneAfter()
+        webp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
         })
-        webp.selectors = webp.selectors.map(function (i) {
-          return 'body.webp ' + i
-        })
-        webp.each(function (i) {
+        webp.selectors = webp.selectors.map(i => 'body.webp ' + i)
+        webp.each(i => {
           i.value = i.value.replace(/\.(jpg|png)/ig, '.webp')
         })
 
-        var noWebp = rule.cloneAfter()
-        noWebp.each(function (i) {
+        let noWebp = rule.cloneAfter()
+        noWebp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
         })
-        noWebp.selectors = noWebp.selectors.map(function (i) {
-          return 'body.no-webp ' + i
-        })
+        noWebp.selectors = noWebp.selectors.map(i => 'body.no-webp ' + i)
 
         decl.remove()
         if (rule.nodes.length === 0) rule.remove()
