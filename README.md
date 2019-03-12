@@ -6,7 +6,7 @@
 [PostCSS] plugin and tiny JS script (128 B) to use [WebP] in CSS `background`.
 
 It will make your images [25% smaller] for Chrome, Firefox, and Edge.
-Safari will download bigger JPEG/PNG image.
+Safari will download bigger JPEG/PNG image.
 
 You add `require('webp-css')` to your JS bundle and write CSS like:
 
@@ -42,3 +42,22 @@ body.no-webp .logo {
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
+
+
+## Usage
+
+**Step 1:** Convert all your JPEG/PNG images to WebP by [Squoosh].
+Set checkbox on `Lossless` for PNG images and remove it for JPEG.
+
+We recommend `Reduce palette` for most of PNG images.
+
+**Step 2:** Use `<picture>` to insert WebP images in HTML:
+
+```html
+<picture>
+  <source src="/screenshot.webp" type="image/webp">
+  <img src="/screenshot.jpg" alt="Screenshot">
+</picture>
+```
+
+[Squoosh]: https://squoosh.app/
