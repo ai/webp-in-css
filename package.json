@@ -78,7 +78,8 @@
       "autoprefixer",
       "js",
       "npm",
-      "webp"
+      "webp",
+      "Versioning"
     ]
   }
 }
