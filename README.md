@@ -37,13 +37,12 @@ body.no-webp .logo {
 </a>
 
 
-## What is WebP
+## WebP
 
 WebP is a new image format to replace JPEG and PNG. It generates 30-50% smaller
 images.
 
 It is supported by Chrome, Firefox, and Edge. But you still need old
-JPEG/PNG images for Safari.
-
-In HTML you can use `<picture>` tag to use WebP in modern browsers and JPEG/PNG
-in Safari. But for CSS `url()` you need a more tricky way.
+JPEG/PNG images for Safari.  In HTML you can use `<picture>` tag to use WebP
+in modern browsers and JPEG/PNG in Safari. But for CSS `url()` you need
+a more tricky way.
