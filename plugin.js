@@ -1,6 +1,6 @@
 let postcss = require('postcss')
 
-module.exports = postcss.plugin('webp-css/plugin', () => {
+module.exports = postcss.plugin('webp-in-css/plugin', () => {
   return root => {
     root.walkDecls(decl => {
       if (/\.(jpg|png)/i.test(decl.value)) {

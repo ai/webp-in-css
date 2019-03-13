@@ -1,6 +1,6 @@
-# WebP CSS
+# WebP in CSS
 
-<img src="https://ai.github.io/webp-css/webp-logo.svg" align="right"
+<img src="https://ai.github.io/webp-in-css/webp-logo.svg" align="right"
      alt="WebP logo" width="150" height="180">
 
 [PostCSS] plugin and tiny JS script (128 bytes) to use [WebP] in CSS `background`.
@@ -8,7 +8,7 @@
 It will make your images [25% smaller] for Chrome, Firefox, and Edge.
 Safari will download the bigger JPEG/PNG image.
 
-You add `require('webp-css')` to your JS bundle and write CSS like:
+You add `require('webp-in-css')` to your JS bundle and write CSS like:
 
 ```css
 .logo {
@@ -38,7 +38,7 @@ body.no-webp .logo {
 [PostCSS]: https://github.com/postcss/postcss
 [WebP]: https://en.wikipedia.org/wiki/WebP
 
-<a href="https://evilmartians.com/?utm_source=webp-css">
+<a href="https://evilmartians.com/?utm_source=webp-in-css">
   <img src="https://evilmartians.com/badges/sponsored-by-evil-martians.svg"
        alt="Sponsored by Evil Martians" width="236" height="54">
 </a>
@@ -64,29 +64,29 @@ Save WebP images in the same places of JPEG/PNG images:
 + </picture>
 ```
 
-**Step 3:** install `webp-css`. For npm use:
+**Step 3:** install `webp-in-css`. For npm use:
 
 ```sh
-npm install --save-dev webp-css
+npm install --save-dev webp-in-css
 ```
 
 For Yarn:
 
 ```sh
-yarn add --dev webp-css
+yarn add --dev webp-in-css
 ```
 
 **Step 4:** add JS script to your client-side JS bundle:
 
 ```diff js
-+ require('webp-css')
++ require('webp-in-css')
 ```
 
 Since JS script is very small (128 bytes), the best way for landings
 is to inline it to HTML:
 
 ```diff html
-+   <script><%= readFile('node_modules/webp-css/index.js') %></script>
++   <script><%= readFile('node_modules/webp-in-css/index.js') %></script>
   </head>
 ```
 
@@ -101,12 +101,12 @@ If you don’t have it already, add PostCSS to your bundle:
   It already has PostCSS support.
 * For Gulp check [gulp-postcss] docs.
 
-**Step 5:** Add `webp-css/plugin` to PostCSS plugins:
+**Step 5:** Add `webp-in-css/plugin` to PostCSS plugins:
 
 ```diff js
 module.exports = {
   plugins: [
-+   require('webp-css/plugin'),
++   require('webp-in-css/plugin'),
     require('autoprefixer')
   ]
 }
@@ -116,7 +116,7 @@ We also recommend to put all images from CSS to preload content:
 
 ```diff html
 +   <link rel="preload" as="image" type="image/webp" href="/logo.webp">
-    <script><%= readFile('node_modules/webp-css/index.js') %></script>
+    <script><%= readFile('node_modules/webp-in-css/index.js') %></script>
   </head>
 ```
 
