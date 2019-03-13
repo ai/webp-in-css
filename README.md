@@ -6,7 +6,7 @@
 [PostCSS] plugin and tiny JS script (128 bytes) to use [WebP] in CSS `background`.
 
 It will make your images [25% smaller] for Chrome, Firefox, and Edge.
-Safari will download bigger JPEG/PNG image.
+Safari will download the bigger JPEG/PNG image.
 
 You add `require('webp-css')` to your JS bundle and write CSS like:
 
@@ -49,9 +49,9 @@ body.no-webp .logo {
 **Step 1:** convert all your JPEG/PNG images to WebP by [Squoosh].
 Set checkbox on `Lossless` for PNG images and remove it for JPEG.
 
-We recommend `Reduce palette` for most of PNG images.
+We recommend `Reduce palette` for most of the PNG images.
 
-Save WebP images in the same places of JPEG/NG images:
+Save WebP images in the same places of JPEG/PNG images:
 `img/bg.png` → `img/bg.webp`.
 
 **Step 2:** use `<picture>` to insert WebP images in HTML:
@@ -94,10 +94,10 @@ is to inline it to HTML:
 You can check `postcss.config.js` in the project root,
 `"postcss"` section in `package.sjson` or `postcss` in bundle config.
 
-If you doesn’t have it already, add PostCSS to your bundle:
+If you don’t have it already, add PostCSS to your bundle:
 
 * For webpack see [postcss-loader] docs.
-* For Parcel just create `postcss.config.js` file.
+* For Parcel create `postcss.config.js` file.
   It already has PostCSS support.
 * For Gulp check [gulp-postcss] docs.
 
