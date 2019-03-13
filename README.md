@@ -92,7 +92,7 @@ is to inline it to HTML:
 
 **Step 5:** check do you use PostCSS already in your bundler.
 You can check `postcss.config.js` in the project root,
-`"postcss"` section in `package.sjson` or `postcss` in bundle config.
+`"postcss"` section in `package.json` or `postcss` in bundle config.
 
 If you don’t have it already, add PostCSS to your bundle:
 
