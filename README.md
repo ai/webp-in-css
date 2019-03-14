@@ -59,7 +59,7 @@ Save WebP images in the same places of JPEG/PNG images:
 ```diff html
 - <img src="/screenshot.jpg" alt="Screenshot">
 + <picture>
-+   <source src="/screenshot.webp" type="image/webp">
++   <source srcset="/screenshot.webp" type="image/webp">
 +   <img src="/screenshot.jpg" alt="Screenshot">
 + </picture>
 ```
