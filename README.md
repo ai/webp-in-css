@@ -5,8 +5,8 @@
 
 [PostCSS] plugin and tiny JS script (128 bytes) to use [WebP] in CSS `background`.
 
-It will make your images [25% smaller] for Chrome, Firefox, and Edge.
-Safari will download the bigger JPEG/PNG image.
+This tool will make your images [25% smaller] for Chrome, Firefox, and Edge.
+Safari will download the bigger JPEG/PNG image.
 
 You add `require('webp-in-css')` to your JS bundle and write CSS like:
 
