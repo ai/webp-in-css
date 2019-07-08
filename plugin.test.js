@@ -25,10 +25,18 @@ it('removes empty rule', () => {
   )
 })
 
-it('no dublicate html tag', () => {
+it('does not dublicate html tag', () => {
   run(
     'html { background: url(./image.jpg) }',
     'html.no-webp { background: url(./image.jpg) }' +
     'html.webp { background: url(./image.webp) }'
+  )
+})
+
+it('does not dublicate more complicated html tag', () => {
+  run(
+    'html[lang=en] { background: url(./image.jpg) }',
+    'html[lang=en].no-webp { background: url(./image.jpg) }' +
+    'html[lang=en].webp { background: url(./image.webp) }'
   )
 })
