@@ -1,11 +1,8 @@
 let postcss = require('postcss')
 
-function selectorChanger (selector, className) {
+function addClass (selector, className) {
   if (selector.includes('html')) {
-    let position = selector.indexOf(' ', selector.indexOf('html'))
-    let index = position !== -1 ? position : selector.length
-
-    return selector.slice(0, index) + `.${ className }` + selector.slice(index)
+    return selector.replace(/html[^ ]*/, `$&.${ className }`)
   } else {
     return `html.${ className } ` + selector
   }
@@ -22,7 +19,7 @@ module.exports = postcss.plugin('webp-in-css/plugin', () => {
         webp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
         })
-        webp.selectors = webp.selectors.map(i => selectorChanger(i, 'webp'))
+        webp.selectors = webp.selectors.map(i => addClass(i, 'webp'))
 
         webp.each(i => {
           i.value = i.value.replace(/\.(jpg|png)/gi, '.webp')
@@ -32,9 +29,7 @@ module.exports = postcss.plugin('webp-in-css/plugin', () => {
         noWebp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
         })
-        noWebp.selectors = noWebp.selectors.map(i =>
-          selectorChanger(i, 'no-webp')
-        )
+        noWebp.selectors = noWebp.selectors.map(i => addClass(i, 'no-webp'))
 
         decl.remove()
         if (rule.nodes.length === 0) rule.remove()
