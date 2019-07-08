@@ -11,8 +11,8 @@ it('adds classes and WebP link', () => {
     '@media screen { a, b { color: black; background: url(./image.jpg) } }',
     '@media screen { ' +
     'a, b { color: black } ' +
-    'html.no-webp a, html.no-webp b { background: url(./image.jpg) } ' +
-    'html.webp a, html.webp b { background: url(./image.webp) } ' +
+    'body.no-webp a, body.no-webp b { background: url(./image.jpg) } ' +
+    'body.webp a, body.webp b { background: url(./image.webp) } ' +
     '}'
   )
 })
@@ -20,23 +20,15 @@ it('adds classes and WebP link', () => {
 it('removes empty rule', () => {
   run(
     'a,b { background: url(./image.PNG) }',
-    'html.no-webp a,html.no-webp b { background: url(./image.PNG) }' +
-    'html.webp a,html.webp b { background: url(./image.webp) }'
+    'body.no-webp a,body.no-webp b { background: url(./image.PNG) }' +
+    'body.webp a,body.webp b { background: url(./image.webp) }'
   )
 })
 
 it('does not dublicate html tag', () => {
   run(
-    'html { background: url(./image.jpg) }',
-    'html.no-webp { background: url(./image.jpg) }' +
-    'html.webp { background: url(./image.webp) }'
-  )
-})
-
-it('does not dublicate more complicated html tag', () => {
-  run(
-    'html[lang=en] { background: url(./image.jpg) }',
-    'html[lang=en].no-webp { background: url(./image.jpg) }' +
-    'html[lang=en].webp { background: url(./image.webp) }'
+    'html[lang=en] .icon { background: url(./image.jpg) }',
+    'html[lang=en] body.no-webp .icon { background: url(./image.jpg) }' +
+    'html[lang=en] body.webp .icon { background: url(./image.webp) }'
   )
 })

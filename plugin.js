@@ -2,9 +2,9 @@ let postcss = require('postcss')
 
 function addClass (selector, className) {
   if (selector.includes('html')) {
-    return selector.replace(/html[^ ]*/, `$&.${ className }`)
+    return selector.replace(/html[^ ]*/, `$& body.${ className }`)
   } else {
-    return `html.${ className } ` + selector
+    return `body.${ className } ` + selector
   }
 }
 
