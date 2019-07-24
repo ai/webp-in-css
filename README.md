@@ -19,7 +19,7 @@ You add `require('webp-in-css')` to your JS bundle and write CSS like:
 ```
 
 The script will set `webp` or `no-webp` class on `<body>`
-and PostCSS plugin will generates:
+and PostCSS plugin will generate:
 
 ```css
 .logo {
