@@ -1,6 +1,6 @@
 let postcss = require('postcss')
 
-let plugin = require('./plugin')
+let plugin = require('../plugin')
 
 function run (input, output, options) {
   expect(postcss([plugin(options)]).process(input).css).toBe(output)
@@ -48,10 +48,7 @@ describe('Options', () => {
       '.c { background: url(./image.png) }',
       'body.without-webp .c { background: url(./image.png) }' +
         'body.has-webp .c { background: url(./image.webp) }',
-      {
-        noWebpClassName: 'without-webp',
-        hasWebpClassName: 'has-webp'
-      }
+      { noWebpClass: 'without-webp', webpClass: 'has-webp' }
     )
   })
 })

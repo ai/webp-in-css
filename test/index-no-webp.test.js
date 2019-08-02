@@ -1,3 +1,4 @@
+
 let delay = require('nanodelay')
 
 global.Image = function () { }
@@ -6,18 +7,16 @@ Object.defineProperty(global.Image.prototype, 'src', {
   get () {
     return this._src
   },
-  set (value) {
+  async set (value) {
     this._src = value
-    delay(1).then(() => {
-      this.onerror()
-    })
+    await delay(1)
+    this.onerror()
   }
 })
 
-require('./index')
+require('../index')
 
-it('adds class to body', () => {
-  return delay(100).then(() => {
-    expect(document.body.className).toEqual('no-webp')
-  })
+it('adds class to body', async () => {
+  await delay(100)
+  expect(document.body.className).toEqual('no-webp')
 })
