@@ -1,18 +1,19 @@
 let delay = require('nanodelay')
 
-global.Image = function () { }
-global.Image.prototype = { }
-Object.defineProperty(global.Image.prototype, 'src', {
-  get () {
+class Image {
+  get src () {
     return this._src
-  },
-  async set (value) {
-    this._src = value
-    await delay(1)
-    this.height = 1
-    this.onload()
   }
-})
+
+  set src (value) {
+    this._src = value
+    delay(1).then(() => {
+      this.height = 1
+      this.onload()
+    })
+  }
+}
+global.Image = Image
 
 require('../index')
 
