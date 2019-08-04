@@ -112,6 +112,18 @@ module.exports = {
 }
 ```
 
+If you use CSS Modules in webpack add `modules: true` option:
+
+```diff js
+module.exports = {
+  plugins: [
+-   require('webp-in-css/plugin'),
++   require('webp-in-css/plugin')({ modules: true }),
+    require('autoprefixer')
+  ]
+}
+```
+
 We also recommend to put all images from CSS to preload content:
 
 ```diff html
@@ -123,3 +135,11 @@ We also recommend to put all images from CSS to preload content:
 [postcss-loader]: https://github.com/postcss/postcss-loader#usage
 [gulp-postcss]: https://github.com/postcss/gulp-postcss
 [Squoosh]: https://squoosh.app/
+
+
+## PostCSS Options
+
+* `modules` boolean: wrap classes to `:global()` to support CSS Modules.
+  `false` by default.
+* `webpClass` string: class name for browser with WebP support.
+* `noWebpClass` string: class name for browser without WebP support.
