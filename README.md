@@ -139,6 +139,14 @@ We also recommend to put all images from CSS to preload content:
 
 ## PostCSS Options
 
+```js
+module.exports = {
+  plugins: [
+    require('webp-in-css/plugin')({ /* options */ }),
+  ]
+}
+```
+
 * `modules` boolean: wrap classes to `:global()` to support CSS Modules.
   `false` by default.
 * `webpClass` string: class name for browser with WebP support.
