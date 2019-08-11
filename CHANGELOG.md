@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.3
+* Rename `require('webp-in-css')` to `require('webp-in-css/polyfill')`.
+
 ## 0.2
 * Add `modules`, `webpClass`, and `noWebpClass` options (by Hovhannes Babayan).
 
