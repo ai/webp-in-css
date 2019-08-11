@@ -8,16 +8,15 @@ class Image {
   set src (value) {
     this._src = value
     delay(1).then(() => {
-      this.height = 1
-      this.onload()
+      this.onerror()
     })
   }
 }
 global.Image = Image
 
-require('../index')
+require('../polyfill')
 
 it('adds class to body', async () => {
   await delay(100)
-  expect(document.body.className).toEqual('webp')
+  expect(document.body.className).toEqual('no-webp')
 })

@@ -50,7 +50,7 @@
   },
   "size-limit": [
     {
-      "path": "index.js",
+      "path": "polyfill.js",
       "limit": "131 B"
     }
   ],
@@ -59,7 +59,7 @@
   },
   "eslintIgnore": [
     "node_modules",
-    "index.js"
+    "polyfill.js"
   ],
   "lint-staged": {
     "*.md": "yaspeller-ci",
@@ -91,7 +91,8 @@
       "npm",
       "webp",
       "Versioning",
-      "webp-in"
+      "webp-in",
+      "polyfill"
     ]
   },
   "jest": {

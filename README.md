@@ -8,7 +8,7 @@
 This tool will make your images [25% smaller] for Chrome, Firefox, and Edge.
 Safari will download the bigger JPEG/PNG image.
 
-You add `require('webp-in-css')` to your JS bundle and write CSS like:
+You add `require('webp-in-css/polyfill')` to your JS bundle and write CSS like:
 
 ```css
 .logo {
@@ -70,23 +70,17 @@ Save WebP images in the same places of JPEG/PNG images:
 npm install --save-dev webp-in-css
 ```
 
-For Yarn:
-
-```sh
-yarn add --dev webp-in-css
-```
-
 **Step 4:** add JS script to your client-side JS bundle:
 
 ```diff js
-+ require('webp-in-css')
++ require('webp-in-css/polyfill')
 ```
 
 Since JS script is very small (131 bytes), the best way for landings
 is to inline it to HTML:
 
 ```diff html
-+   <script><%= readFile('node_modules/webp-in-css/index.js') %></script>
++   <script><%= readFile('node_modules/webp-in-css/polyfill.js') %></script>
   </head>
 ```
 
@@ -128,7 +122,7 @@ We also recommend to put all images from CSS to preload content:
 
 ```diff html
 +   <link rel="preload" as="image" type="image/webp" href="/logo.webp">
-    <script><%= readFile('node_modules/webp-in-css/index.js') %></script>
+    <script><%= readFile('node_modules/webp-in-css/polyfill.js') %></script>
   </head>
 ```
 
