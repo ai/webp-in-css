@@ -24,7 +24,7 @@
   "devDependencies": {
     "@logux/eslint-config": "^30.0.2",
     "@logux/sharec-config": "^0.4.0",
-    "@size-limit/preset-small-lib": "^2.0.0",
+    "@size-limit/preset-small-lib": "^2.0.1",
     "clean-publish": "^1.1.2",
     "documentation": "^12.1.1",
     "eslint": "^6.1.0",
