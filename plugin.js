@@ -3,11 +3,17 @@ let postcss = require('postcss')
 const DEFAULT_OPTIONS = {
   modules: false,
   noWebpClass: 'no-webp',
-  webpClass: 'webp'
+  webpClass: 'webp',
+  rename: oldName => {
+    return oldName.replace(/\.(jpg|png)/gi, '.webp')
+  }
 }
 
 module.exports = postcss.plugin('webp-in-css/plugin', opts => {
-  let { modules, noWebpClass, webpClass } = { ...DEFAULT_OPTIONS, ...opts }
+  let { modules, noWebpClass, webpClass, rename } = {
+    ...DEFAULT_OPTIONS,
+    ...opts
+  }
 
   function addClass (selector, className) {
     if (modules) {
@@ -24,7 +30,7 @@ module.exports = postcss.plugin('webp-in-css/plugin', opts => {
 
   return root => {
     root.walkDecls(decl => {
-      if (/\.(jpg|png)/i.test(decl.value)) {
+      if (/\.(jpg|png)(?!\.webp)/i.test(decl.value)) {
         let rule = decl.parent
         if (rule.selector.indexOf(`.${ noWebpClass }`) !== -1) return
         let webp = rule.cloneAfter()
@@ -33,7 +39,12 @@ module.exports = postcss.plugin('webp-in-css/plugin', opts => {
         })
         webp.selectors = webp.selectors.map(i => addClass(i, webpClass))
         webp.each(i => {
-          i.value = i.value.replace(/\.(jpg|png)/gi, '.webp')
+          if (
+            rename &&
+            Object.prototype.toString.call(rename) === '[object Function]'
+          ) {
+            i.value = rename(i.value)
+          }
         })
         let noWebp = rule.cloneAfter()
         noWebp.each(i => {

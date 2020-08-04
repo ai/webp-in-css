@@ -51,4 +51,17 @@ describe('Options', () => {
       { noWebpClass: 'without-webp', webpClass: 'has-webp' }
     )
   })
+
+  it('set rename function', () => {
+    run(
+      '.c { background: url(./image.png) }',
+      'body.no-webp .c { background: url(./image.png) }' +
+        'body.webp .c { background: url(./image.png.webp) }',
+      {
+        rename: oldName => {
+          return oldName.replace(/\.(jpg|png)/gi, '.$1.webp')
+        }
+      }
+    )
+  })
 })
