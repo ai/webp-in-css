@@ -93,7 +93,11 @@
       "webp",
       "Versioning",
       "webp-in",
-      "polyfill"
+      "polyfill",
+      "bundler",
+      "webpack",
+      "postcss",
+      "WebP  in"
     ]
   },
   "jest": {
