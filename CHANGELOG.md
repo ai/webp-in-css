@@ -1,6 +1,9 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.4
+* Added `rename` option (by @wtagain).
+
 ## 0.3
 * Rename `require('webp-in-css')` to `require('webp-in-css/polyfill')`.
 
