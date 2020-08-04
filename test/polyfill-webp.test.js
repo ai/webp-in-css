@@ -1,4 +1,4 @@
-let delay = require('nanodelay')
+let { delay } = require('nanodelay')
 
 class Image {
   get src () {

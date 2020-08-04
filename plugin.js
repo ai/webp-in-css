@@ -17,14 +17,14 @@ module.exports = postcss.plugin('webp-in-css/plugin', opts => {
 
   function addClass (selector, className) {
     if (modules) {
-      className = `:global(.${ className })`
+      className = `:global(.${className})`
     } else {
-      className = `.${ className }`
+      className = `.${className}`
     }
     if (selector.includes('html')) {
-      return selector.replace(/html[^ ]*/, `$& body${ className }`)
+      return selector.replace(/html[^ ]*/, `$& body${className}`)
     } else {
-      return `body${ className } ` + selector
+      return `body${className} ` + selector
     }
   }
 
@@ -32,7 +32,7 @@ module.exports = postcss.plugin('webp-in-css/plugin', opts => {
     root.walkDecls(decl => {
       if (/\.(jpg|png)(?!\.webp)/i.test(decl.value)) {
         let rule = decl.parent
-        if (rule.selector.indexOf(`.${ noWebpClass }`) !== -1) return
+        if (rule.selector.includes(`.${noWebpClass}`)) return
         let webp = rule.cloneAfter()
         webp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()

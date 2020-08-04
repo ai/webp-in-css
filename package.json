@@ -13,37 +13,39 @@
   "license": "MIT",
   "repository": "ai/webp-in-css",
   "scripts": {
-    "api": "documentation build *.js -f md -o api.md",
-    "spell": "yarn api && yaspeller-ci *.md",
-    "clean": "rimraf api.md coverage/",
-    "test": "jest --coverage && eslint-ci . && size-limit && yarn spell"
+    "spell": "yaspeller-ci *.md",
+    "clean": "rimraf coverage/",
+    "test": "jest-ci --coverage && eslint-ci . && size-limit && yarn spell"
   },
   "dependencies": {
-    "postcss": "^7.0.17"
+    "postcss": "^7.0.32"
   },
   "devDependencies": {
-    "@logux/eslint-config": "^30.0.2",
-    "@logux/sharec-config": "^0.4.0",
-    "@size-limit/preset-small-lib": "^2.0.1",
-    "clean-publish": "^1.1.2",
-    "documentation": "^12.1.1",
-    "eslint": "^6.1.0",
+    "@logux/eslint-config": "^40.0.1",
+    "@logux/sharec-config": "^0.7.4",
+    "@size-limit/preset-small-lib": "^4.5.5",
+    "clean-publish": "^1.1.8",
+    "eslint": "^7.6.0",
     "eslint-ci": "^1.0.0",
-    "eslint-config-standard": "^13.0.1",
-    "eslint-plugin-es5": "^1.4.1",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-jest": "^22.15.0",
-    "eslint-plugin-node": "^9.1.0",
-    "eslint-plugin-prefer-let": "^1.0.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-es5": "^1.5.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prefer-let": "^1.0.2",
+    "eslint-plugin-prettierx": "^0.12.1",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-standard": "^4.0.0",
-    "husky": "^3.0.3",
-    "jest": "^24.8.0",
-    "lint-staged": "^9.2.1",
-    "nanodelay": "^0.1.4",
-    "rimraf": "^2.6.3",
-    "yaspeller-ci": "^1.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "eslint-plugin-unicorn": "^21.0.0",
+    "husky": "^4.2.5",
+    "jest": "^26.2.2",
+    "jest-ci": "^0.1.1",
+    "lint-staged": "^10.2.11",
+    "nanodelay": "^1.0.3",
+    "rimraf": "^3.0.2",
+    "size-limit": "^4.5.5",
+    "yaspeller-ci": "^1.0.2"
   },
   "engines": {
     "node": ">=8.3.0"
@@ -55,15 +57,14 @@
     }
   ],
   "eslintConfig": {
-    "extends": "@logux/eslint-config/node"
+    "extends": "@logux/eslint-config"
   },
   "eslintIgnore": [
-    "node_modules",
     "polyfill.js"
   ],
   "lint-staged": {
-    "*.md": "yaspeller-ci",
-    "*.js": "eslint"
+    "*.md": "yaspeller",
+    "*.js": "eslint --fix"
   },
   "husky": {
     "hooks": {
@@ -103,6 +104,7 @@
     }
   },
   "sharec": {
-    "version": "0.4.0"
+    "config": "@logux/sharec-config",
+    "version": "0.7.4"
   }
 }

@@ -33,7 +33,7 @@ it('does not dublicate html tag', () => {
   )
 })
 
-describe('Options', () => {
+describe('options', () => {
   it('should add :global() scope when css modules enabled', () => {
     run(
       'a { background: url(./image.png) }',
