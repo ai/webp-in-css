@@ -52,12 +52,16 @@ describe('Options', () => {
     )
   })
 
-  it('overrideExtension is false', () => {
+  it('set rename function', () => {
     run(
       '.c { background: url(./image.png) }',
       'body.no-webp .c { background: url(./image.png) }' +
         'body.webp .c { background: url(./image.png.webp) }',
-      { overrideExtension: false }
+      {
+        rename: oldName => {
+          return oldName.replace(/\.(jpg|png)/gi, '.$1.webp')
+        }
+      }
     )
   })
 })

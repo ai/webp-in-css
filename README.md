@@ -145,3 +145,4 @@ module.exports = {
   `false` by default.
 * `webpClass` string: class name for browser with WebP support.
 * `noWebpClass` string: class name for browser without WebP support.
+* `rename` function: get a new file name from old name, like `(oldName: string) => string`, then `url(./image.png)` -> `url(./image.png.webp)`.

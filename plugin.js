@@ -4,11 +4,13 @@ const DEFAULT_OPTIONS = {
   modules: false,
   noWebpClass: 'no-webp',
   webpClass: 'webp',
-  overrideExtension: true
+  rename: oldName => {
+    return oldName.replace(/\.(jpg|png)/gi, '.webp')
+  }
 }
 
 module.exports = postcss.plugin('webp-in-css/plugin', opts => {
-  let { modules, noWebpClass, webpClass, overrideExtension } = {
+  let { modules, noWebpClass, webpClass, rename } = {
     ...DEFAULT_OPTIONS,
     ...opts
   }
@@ -37,10 +39,11 @@ module.exports = postcss.plugin('webp-in-css/plugin', opts => {
         })
         webp.selectors = webp.selectors.map(i => addClass(i, webpClass))
         webp.each(i => {
-          if (overrideExtension) {
-            i.value = i.value.replace(/\.(jpg|png)/gi, '.webp')
-          } else {
-            i.value = i.value.replace(/\.(jpg|png)/gi, '.$1.webp')
+          if (
+            rename &&
+            Object.prototype.toString.call(rename) === '[object Function]'
+          ) {
+            i.value = rename(i.value)
           }
         })
         let noWebp = rule.cloneAfter()
