@@ -51,4 +51,13 @@ describe('Options', () => {
       { noWebpClass: 'without-webp', webpClass: 'has-webp' }
     )
   })
+
+  it('overrideExtension is false', () => {
+    run(
+      '.c { background: url(./image.png) }',
+      'body.no-webp .c { background: url(./image.png) }' +
+        'body.webp .c { background: url(./image.png.webp) }',
+      { overrideExtension: false }
+    )
+  })
 })
