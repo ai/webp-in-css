@@ -1,5 +1,3 @@
-let postcss = require('postcss')
-
 const DEFAULT_OPTIONS = {
   modules: false,
   noWebpClass: 'no-webp',
@@ -9,7 +7,7 @@ const DEFAULT_OPTIONS = {
   }
 }
 
-module.exports = postcss.plugin('webp-in-css/plugin', opts => {
+module.exports = (opts = {}) => {
   let { modules, noWebpClass, webpClass, rename } = {
     ...DEFAULT_OPTIONS,
     ...opts
@@ -27,9 +25,9 @@ module.exports = postcss.plugin('webp-in-css/plugin', opts => {
       return `body${className} ` + selector
     }
   }
-
-  return root => {
-    root.walkDecls(decl => {
+  return {
+    postcssPlugin: 'webp-in-css/plugin',
+    Declaration (decl) {
       if (/\.(jpg|png)(?!\.webp)/i.test(decl.value)) {
         let rule = decl.parent
         if (rule.selector.includes(`.${noWebpClass}`)) return
@@ -54,6 +52,7 @@ module.exports = postcss.plugin('webp-in-css/plugin', opts => {
         decl.remove()
         if (rule.nodes.length === 0) rule.remove()
       }
-    })
+    }
   }
-})
+}
+module.exports.postcss = true

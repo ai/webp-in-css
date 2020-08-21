@@ -13,27 +13,26 @@
   "license": "MIT",
   "repository": "ai/webp-in-css",
   "scripts": {
-    "spell": "yaspeller-ci *.md",
-    "clean": "rimraf coverage/",
-    "test": "jest-ci --coverage && eslint-ci . && size-limit && yarn spell"
+    "test": "jest-ci --coverage && eslint-ci . && size-limit"
   },
-  "dependencies": {
-    "postcss": "^7.0.32"
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "peerDependencies": {
+    "postcss": "postcss/postcss#ose"
   },
   "devDependencies": {
     "@logux/eslint-config": "^40.0.1",
-    "@logux/sharec-config": "^0.7.4",
-    "@size-limit/preset-small-lib": "^4.5.5",
+    "@size-limit/preset-small-lib": "^4.5.3",
     "clean-publish": "^1.1.8",
     "eslint": "^7.6.0",
     "eslint-ci": "^1.0.0",
     "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-es5": "^1.5.0",
     "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^23.20.0",
+    "eslint-plugin-jest": "^23.18.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prefer-let": "^1.0.2",
-    "eslint-plugin-prettierx": "^0.12.1",
+    "eslint-plugin-prefer-let": "^1.0.1",
+    "eslint-plugin-prettierx": "^0.14.0",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.1",
@@ -43,12 +42,9 @@
     "jest-ci": "^0.1.1",
     "lint-staged": "^10.2.11",
     "nanodelay": "^1.0.3",
-    "rimraf": "^3.0.2",
-    "size-limit": "^4.5.5",
-    "yaspeller-ci": "^1.0.2"
-  },
-  "engines": {
-    "node": ">=8.3.0"
+    "postcss": "postcss/postcss#ose",
+    "postcss-sharec-config": "^0.1.1",
+    "size-limit": "^4.5.3"
   },
   "size-limit": [
     {
@@ -62,43 +58,13 @@
   "eslintIgnore": [
     "polyfill.js"
   ],
-  "lint-staged": {
-    "*.md": "yaspeller",
-    "*.js": "eslint --fix"
-  },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged"
     }
   },
-  "yaspeller": {
-    "lang": "en",
-    "ignoreCapitalization": true,
-    "ignoreText": [
-      " \\(by [^)]+\\)."
-    ],
-    "dictionary": [
-      "WebP",
-      "PostCSS",
-      "JS",
-      "WebP in",
-      "Squoosh",
-      "NG",
-      "diff",
-      "sh",
-      "dev",
-      "autoprefixer",
-      "js",
-      "npm",
-      "webp",
-      "Versioning",
-      "webp-in",
-      "polyfill",
-      "bundler",
-      "webpack",
-      "postcss",
-      "WebP  in"
-    ]
+  "lint-staged": {
+    "*.js": "eslint --fix"
   },
   "jest": {
     "coverageThreshold": {
@@ -108,7 +74,7 @@
     }
   },
   "sharec": {
-    "config": "@logux/sharec-config",
-    "version": "0.7.4"
+    "config": "postcss-sharec-config",
+    "version": "0.1.1"
   }
 }
