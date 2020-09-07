@@ -17,6 +17,24 @@ it('adds classes and WebP link', () => {
   )
 })
 
+it('should work with jpeg', () => {
+  run(
+    '@media screen { a, b { color: black; background: url(./image.jpeg) } }',
+    '@media screen { ' +
+      'a, b { color: black } ' +
+      'body.no-webp a, body.no-webp b { background: url(./image.jpeg) } ' +
+      'body.webp a, body.webp b { background: url(./image.webp) } ' +
+      '}'
+  )
+})
+
+it('should skip urls with [&?]format=webp', () => {
+  run(
+    '@media screen { a, b { color: black; background: url(./image.jpeg?format=webp) } }',
+    '@media screen { a, b { color: black; background: url(./image.jpeg?format=webp) } }'
+  )
+})
+
 it('removes empty rule', () => {
   run(
     'a,b { background: url(./image.PNG) }',

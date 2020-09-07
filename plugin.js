@@ -3,7 +3,7 @@ const DEFAULT_OPTIONS = {
   noWebpClass: 'no-webp',
   webpClass: 'webp',
   rename: oldName => {
-    return oldName.replace(/\.(jpg|png)/gi, '.webp')
+    return oldName.replace(/\.(jpe?g|png)/gi, '.webp')
   }
 }
 
@@ -28,7 +28,7 @@ module.exports = (opts = {}) => {
   return {
     postcssPlugin: 'webp-in-css/plugin',
     Declaration (decl) {
-      if (/\.(jpg|png)(?!\.webp)/i.test(decl.value)) {
+      if (/\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value)) {
         let rule = decl.parent
         if (rule.selector.includes(`.${noWebpClass}`)) return
         let webp = rule.cloneAfter()
