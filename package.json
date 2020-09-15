@@ -16,10 +16,10 @@
     "test": "jest-ci --coverage && eslint-ci . && size-limit"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=10.0"
   },
   "peerDependencies": {
-    "postcss": "postcss/postcss#ose"
+    "postcss": "^8.0.3"
   },
   "devDependencies": {
     "@logux/eslint-config": "^40.0.1",
@@ -37,13 +37,13 @@
     "eslint-plugin-security": "^1.4.0",
     "eslint-plugin-standard": "^4.0.1",
     "eslint-plugin-unicorn": "^21.0.0",
-    "husky": "^4.2.5",
+    "husky": "^4.3.0",
     "jest": "^26.2.2",
     "jest-ci": "^0.1.1",
-    "lint-staged": "^10.2.11",
+    "lint-staged": "^10.3.0",
     "nanodelay": "^1.0.3",
-    "postcss": "postcss/postcss#ose",
-    "postcss-sharec-config": "^0.1.1",
+    "postcss": "^8.0.3",
+    "postcss-sharec-config": "^0.1.6",
     "size-limit": "^4.5.3"
   },
   "size-limit": [
@@ -75,6 +75,6 @@
   },
   "sharec": {
     "config": "postcss-sharec-config",
-    "version": "0.1.1"
+    "version": "0.1.6"
   }
 }
