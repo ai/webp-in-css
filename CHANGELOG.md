@@ -1,6 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.5
+* Moved to PostCSS 8.
+* Moved `postcss` to `peerDependencies`.
+* Added `.jpeg` files support (by Anton Nesterov).
+
 ## 0.4
 * Added `rename` option (by @wtagain).
 
