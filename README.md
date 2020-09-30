@@ -1,5 +1,7 @@
 # WebP in CSS
 
+An CSS Code which help you
+
 <img src="https://ai.github.io/webp-in-css/webp-logo.svg" align="right"
      alt="WebP logo" width="150" height="180">
 
