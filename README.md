@@ -79,7 +79,7 @@ npm install --save-dev webp-in-css
 **Step 5:** add JS script to your client-side JS bundle:
 
 ```diff js
-+ require('webp-in-css/polyfill')
++ import 'webp-in-css/polyfill'
 ```
 
 Since JS script is very small (131 bytes), the best way for landings
