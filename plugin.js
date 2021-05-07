@@ -13,7 +13,14 @@ module.exports = (opts = {}) => {
     ...opts
   }
 
+  function removeHtmlPrefix (className) {
+    return className.replace(/html ?\./, '')
+  }
+
   function addClass (selector, className) {
+    if (className.includes('html')) {
+      className = removeHtmlPrefix(className)
+    }
     if (modules) {
       className = `:global(.${className})`
     } else {
@@ -30,7 +37,7 @@ module.exports = (opts = {}) => {
     Declaration (decl) {
       if (/\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value)) {
         let rule = decl.parent
-        if (rule.selector.includes(`.${noWebpClass}`)) return
+        if (rule.selector.includes(`.${removeHtmlPrefix(noWebpClass)}`)) return
         let webp = rule.cloneAfter()
         webp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
