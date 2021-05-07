@@ -2,13 +2,15 @@ const DEFAULT_OPTIONS = {
   modules: false,
   noWebpClass: 'no-webp',
   webpClass: 'webp',
+  addNoJs: true,
+  noJsClass: 'no-js',
   rename: oldName => {
     return oldName.replace(/\.(jpe?g|png)/gi, '.webp')
   }
 }
 
 module.exports = (opts = {}) => {
-  let { modules, noWebpClass, webpClass, rename } = {
+  let { modules, noWebpClass, webpClass, addNoJs, noJsClass, rename } = {
     ...DEFAULT_OPTIONS,
     ...opts
   }
@@ -18,19 +20,29 @@ module.exports = (opts = {}) => {
   }
 
   function addClass (selector, className) {
+    let generatedNoJsClass
+    let initialClassName = className
     if (className.includes('html')) {
       className = removeHtmlPrefix(className)
     }
     if (modules) {
       className = `:global(.${className})`
+      generatedNoJsClass = `:global(.${noJsClass})`
     } else {
       className = `.${className}`
+      generatedNoJsClass = `.${noJsClass}`
     }
     if (selector.includes('html')) {
-      return selector.replace(/html[^ ]*/, `$& body${className}`)
+      selector = selector.replace(/html[^ ]*/, `$& body${className}`)
     } else {
-      return `body${className} ` + selector
+      selector = `body${className} ` + selector
     }
+    if (addNoJs && initialClassName === noWebpClass) {
+      selector +=
+        ', ' +
+        selector.split(`body${className}`).join(`body${generatedNoJsClass}`)
+    }
+    return selector
   }
   return {
     postcssPlugin: 'webp-in-css/plugin',
