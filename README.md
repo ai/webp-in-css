@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/webp-in-css/webp-logo.svg" align="right"
      alt="WebP logo" width="150" height="180">
 
-[PostCSS] plugin and tiny JS script (131 bytes) to use [WebP] in CSS `background`.
+[PostCSS] plugin and tiny JS script (142 bytes) to use [WebP] in CSS `background`.
 
 This tool will make your images [25% smaller] for Chrome, Firefox, and Edge.
 Safari will download the bigger JPEG/PNG image.
@@ -29,10 +29,15 @@ and PostCSS plugin will generate:
 body.webp .logo {
   background: url(/logo.webp);
 }
-body.no-webp .logo {
+body.no-webp .logo, body.no-js .logo {
   background: url(/logo.png);
 }
 ```
+
+If you want to use `addNoJs` option, you need manually set `no-js` class on `<body>`.
+Polyfill will remove this class, if JS is enabled in the browser. Polyfill should 
+be inserted in the `<head>`, without `async` or `defer` attributes, before css.
+`addNoJs` option is enabled by default.
 
 [25% smaller]: https://developers.google.com/speed/webp/docs/webp_lossless_alpha_study#results
 [PostCSS]: https://github.com/postcss/postcss
@@ -82,7 +87,7 @@ npm install --save-dev webp-in-css
 + import 'webp-in-css/polyfill'
 ```
 
-Since JS script is very small (131 bytes), the best way for landings
+Since JS script is very small (142 bytes), the best way for landings
 is to inline it to HTML:
 
 ```diff html
@@ -151,4 +156,7 @@ module.exports = {
   `false` by default.
 * `webpClass` string: class name for browser with WebP support.
 * `noWebpClass` string: class name for browser without WebP support.
+* `addNoJs` boolean: add `no-js` class to selector.
+  `true` by default.
+* `noJsClass` string: class name for browser without JS support.
 * `rename` function: get a new file name from old name, like `(oldName: string) => string`, then `url(./image.png)` → `url(./image.png.webp)`.
