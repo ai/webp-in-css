@@ -13,42 +13,40 @@
   "license": "MIT",
   "repository": "ai/webp-in-css",
   "scripts": {
-    "test": "jest-ci --coverage && eslint-ci . && size-limit"
+    "test": "jest --coverage && eslint . && size-limit"
   },
   "engines": {
-    "node": ">=10.0"
+    "node": ">=12.0"
   },
   "funding": {
     "type": "opencollective",
     "url": "https://opencollective.com/postcss/"
   },
   "peerDependencies": {
-    "postcss": "^8.1.0"
+    "postcss": "^8.2.14"
   },
   "devDependencies": {
-    "@logux/eslint-config": "^40.0.1",
-    "@size-limit/preset-small-lib": "^4.5.3",
-    "clean-publish": "^1.1.8",
-    "eslint": "^7.6.0",
-    "eslint-ci": "^1.0.0",
-    "eslint-config-standard": "^14.1.1",
-    "eslint-plugin-import": "^2.22.0",
-    "eslint-plugin-jest": "^24.0.2",
+    "@logux/eslint-config": "^45.4.1",
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "clean-publish": "^2.2.0",
+    "eslint": "^7.25.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.6",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prefer-let": "^1.0.1",
-    "eslint-plugin-prettierx": "^0.14.0",
-    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-prefer-let": "^1.1.0",
+    "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-security": "^1.4.0",
-    "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-unicorn": "^22.0.0",
-    "husky": "^4.3.0",
-    "jest": "^26.2.2",
-    "jest-ci": "^0.1.1",
-    "lint-staged": "^10.4.0",
-    "nanodelay": "^1.0.3",
-    "postcss": "^8.1.0",
-    "postcss-sharec-config": "^0.1.8",
-    "size-limit": "^4.5.3"
+    "eslint-plugin-unicorn": "^31.0.0",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "lint-staged": "^11.0.0",
+    "nanodelay": "^1.0.8",
+    "postcss": "^8.2.14",
+    "postcss-sharec-config": "^0.4.1",
+    "prettier": "^2.2.1",
+    "simple-git-hooks": "^2.4.1",
+    "size-limit": "^4.10.2"
   },
   "size-limit": [
     {
@@ -62,15 +60,25 @@
   "eslintIgnore": [
     "polyfill.js"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
-    "*.js": "eslint --fix"
+    "*.js": [
+      "prettier --write",
+      "eslint --fix"
+    ]
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
+  },
+  "prettier": {
+    "arrowParens": "avoid",
+    "jsxSingleQuote": false,
+    "quoteProps": "consistent",
+    "semi": false,
+    "singleQuote": true,
+    "trailingComma": "none"
   },
   "jest": {
+    "testEnvironment": "jsdom",
     "coverageThreshold": {
       "global": {
         "statements": 100
@@ -79,6 +87,6 @@
   },
   "sharec": {
     "config": "postcss-sharec-config",
-    "version": "0.1.8"
+    "version": "0.4.1"
   }
 }
