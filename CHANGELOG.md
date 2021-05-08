@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.6
+* Removed Node.js 10 support.
+* Add no JS support (by @LambdaZed).
+
 ## 0.5.1
 * Added funding links.
 
