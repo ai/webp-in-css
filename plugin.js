@@ -15,11 +15,11 @@ module.exports = (opts = {}) => {
     ...opts
   }
 
-  function removeHtmlPrefix (className) {
+  function removeHtmlPrefix(className) {
     return className.replace(/html ?\./, '')
   }
 
-  function addClass (selector, className) {
+  function addClass(selector, className) {
     let generatedNoJsClass
     let initialClassName = className
     if (className.includes('html')) {
@@ -46,7 +46,7 @@ module.exports = (opts = {}) => {
   }
   return {
     postcssPlugin: 'webp-in-css/plugin',
-    Declaration (decl) {
+    Declaration(decl) {
       if (/\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value)) {
         let rule = decl.parent
         if (rule.selector.includes(`.${removeHtmlPrefix(noWebpClass)}`)) return

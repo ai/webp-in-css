@@ -2,7 +2,7 @@ let postcss = require('postcss')
 
 let plugin = require('../plugin')
 
-function run (input, output, options) {
+function run(input, output, options) {
   expect(postcss([plugin(options)]).process(input).css).toBe(output)
 }
 

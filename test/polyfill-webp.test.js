@@ -1,11 +1,11 @@
 let { delay } = require('nanodelay')
 
 class Image {
-  get src () {
+  get src() {
     return this._src
   }
 
-  set src (value) {
+  set src(value) {
     this._src = value
     delay(1).then(() => {
       this.height = 1
