@@ -12,6 +12,9 @@
   "author": "Andrey Sitnik <andrey@sitnik.ru>",
   "license": "MIT",
   "repository": "ai/webp-in-css",
+  "bugs": {
+    "url": "https://github.com/ai/webp-in-css/issues"
+  },
   "scripts": {
     "test": "jest --coverage && eslint . && size-limit"
   },
