@@ -1,12 +1,14 @@
+let { equal } = require('uvu/assert')
 let postcss = require('postcss')
+let { test } = require('uvu')
 
 let plugin = require('../plugin')
 
 function run(input, output, options) {
-  expect(postcss([plugin(options)]).process(input).css).toBe(output)
+  equal(postcss([plugin(options)]).process(input).css, output)
 }
 
-it('adds classes and WebP link', () => {
+test('adds classes and WebP link', () => {
   run(
     '@media screen { a, b { color: black; background: url(./image.jpg) } }',
     '@media screen { ' +
@@ -18,7 +20,7 @@ it('adds classes and WebP link', () => {
   )
 })
 
-it('should work with jpeg', () => {
+test('should work with jpeg', () => {
   run(
     '@media screen { a, b { color: black; background: url(./image.jpeg) } }',
     '@media screen { ' +
@@ -30,7 +32,7 @@ it('should work with jpeg', () => {
   )
 })
 
-it('should skip urls with [&?]format=webp', () => {
+test('should skip urls with [&?]format=webp', () => {
   run(
     '@media screen { a, b { color: black; background: url(./image.jpeg?format=webp) } }',
     '@media screen { a, b { color: black; background: url(./image.jpeg?format=webp) } }',
@@ -38,7 +40,7 @@ it('should skip urls with [&?]format=webp', () => {
   )
 })
 
-// it('removes empty rule', () => {
+// test('removes empty rule', () => {
 //   run(
 //     'a,b { background: url(./image.PNG) }',
 //     'body.no-webp a,body.no-webp b { background: url(./image.PNG) }' +
@@ -47,7 +49,7 @@ it('should skip urls with [&?]format=webp', () => {
 //   )
 // })
 
-it('does not duplicate html tag', () => {
+test('does not duplicate html tag', () => {
   run(
     'html[lang=en] .icon { background: url(./image.jpg) }',
     'html[lang=en] .icon { background: url(./image.jpg) }' +
@@ -57,72 +59,70 @@ it('does not duplicate html tag', () => {
   )
 })
 
-describe('options', () => {
-  it('should add :global() scope when css modules enabled', () => {
-    run(
-      'a { background: url(./image.png) }',
-      'a { background: url(./image.png) }' +
-        'body:global(.no-webp) a { background-image: url(./image.png) }' +
-        'body:global(.webp) a { background-image: url(./image.webp) }',
-      { modules: true, addNoJs: false }
-    )
-  })
-
-  it('should use passed classNames', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.without-webp .c { background-image: url(./image.png) }' +
-        'body.has-webp .c { background-image: url(./image.webp) }',
-      { noWebpClass: 'without-webp', webpClass: 'has-webp', addNoJs: false }
-    )
-  })
-
-  it('should replace passed class with html tag v1', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.without-webp .c { background-image: url(./image.png) }' +
-        'body.has-webp .c { background-image: url(./image.webp) }',
-      {
-        noWebpClass: 'html.without-webp',
-        webpClass: 'html.has-webp',
-        addNoJs: false
-      }
-    )
-  })
-
-  it('should replace passed class with html tag v2', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.without-webp .c { background-image: url(./image.png) }' +
-        'body.has-webp .c { background-image: url(./image.webp) }',
-      {
-        noWebpClass: 'html .without-webp',
-        webpClass: 'html .has-webp',
-        addNoJs: false
-      }
-    )
-  })
-
-  it('set rename function', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.no-webp .c { background-image: url(./image.png) }' +
-        'body.webp .c { background-image: url(./image.png.webp) }',
-      {
-        addNoJs: false,
-        rename: oldName => {
-          return oldName.replace(/\.(jpg|png)/gi, '.$1.webp')
-        }
-      }
-    )
-  })
+test('should add :global() scope when css modules enabled', () => {
+  run(
+    'a { background: url(./image.png) }',
+    'a { background: url(./image.png) }' +
+      'body:global(.no-webp) a { background-image: url(./image.png) }' +
+      'body:global(.webp) a { background-image: url(./image.webp) }',
+    { modules: true, addNoJs: false }
+  )
 })
 
-it('adds classes and WebP link when NoJs option is enabled', () => {
+test('should use passed classNames', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.without-webp .c { background-image: url(./image.png) }' +
+      'body.has-webp .c { background-image: url(./image.webp) }',
+    { noWebpClass: 'without-webp', webpClass: 'has-webp', addNoJs: false }
+  )
+})
+
+test('should replace passed class with html tag v1', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.without-webp .c { background-image: url(./image.png) }' +
+      'body.has-webp .c { background-image: url(./image.webp) }',
+    {
+      noWebpClass: 'html.without-webp',
+      webpClass: 'html.has-webp',
+      addNoJs: false
+    }
+  )
+})
+
+test('should replace passed class with html tag v2', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.without-webp .c { background-image: url(./image.png) }' +
+      'body.has-webp .c { background-image: url(./image.webp) }',
+    {
+      noWebpClass: 'html .without-webp',
+      webpClass: 'html .has-webp',
+      addNoJs: false
+    }
+  )
+})
+
+test('set rename function', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.no-webp .c { background-image: url(./image.png) }' +
+      'body.webp .c { background-image: url(./image.png.webp) }',
+    {
+      addNoJs: false,
+      rename: oldName => {
+        return oldName.replace(/\.(jpg|png)/gi, '.$1.webp')
+      }
+    }
+  )
+})
+
+test('adds classes and WebP link when NoJs option is enabled', () => {
   run(
     '@media screen { a, b { color: black; background: url(./image.jpg) } }',
     '@media screen { ' +
@@ -133,7 +133,7 @@ it('adds classes and WebP link when NoJs option is enabled', () => {
   )
 })
 
-it('should work with jpeg when NoJs option is enabled', () => {
+test('should work with jpeg when NoJs option is enabled', () => {
   run(
     '@media screen { a, b { color: black; background: url(./image.jpeg) } }',
     '@media screen { ' +
@@ -144,14 +144,14 @@ it('should work with jpeg when NoJs option is enabled', () => {
   )
 })
 
-it('should skip urls with [&?]format=webp when NoJs option is enabled', () => {
+test('should skip urls with [&?]format=webp when NoJs option is enabled', () => {
   run(
     '@media screen { a, b { color: black; background: url(./image.jpeg?format=webp) } }',
     '@media screen { a, b { color: black; background: url(./image.jpeg?format=webp) } }'
   )
 })
 
-it('removes empty rule when NoJs option is enabled', () => {
+test('removes empty rule when NoJs option is enabled', () => {
   run(
     'a,b { background: url(./image.PNG) }',
     'a,b { background: url(./image.PNG) }' +
@@ -160,7 +160,7 @@ it('removes empty rule when NoJs option is enabled', () => {
   )
 })
 
-it('does not duplicate html tag when NoJs option is enabled', () => {
+test('does not duplicate html tag when NoJs option is enabled', () => {
   run(
     'html[lang=en] .icon { background: url(./image.jpg) }',
     'html[lang=en] .icon { background: url(./image.jpg) }' +
@@ -169,58 +169,58 @@ it('does not duplicate html tag when NoJs option is enabled', () => {
   )
 })
 
-describe('options with enabled NoJs property', () => {
-  it('should add :global() scope when css modules enabled', () => {
-    run(
-      'a { background: url(./image.png) }',
-      'a { background: url(./image.png) }' +
-        'body:global(.no-webp) a, body:global(.no-js) a { background-image: url(./image.png) }' +
-        'body:global(.webp) a { background-image: url(./image.webp) }',
-      { modules: true }
-    )
-  })
-
-  it('should use passed classNames', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.without-webp .c, body.no-js .c { background-image: url(./image.png) }' +
-        'body.has-webp .c { background-image: url(./image.webp) }',
-      { noWebpClass: 'without-webp', webpClass: 'has-webp' }
-    )
-  })
-
-  it('should replace passed class with html tag v1', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.without-webp .c, body.no-js .c { background-image: url(./image.png) }' +
-        'body.has-webp .c { background-image: url(./image.webp) }',
-      { noWebpClass: 'html.without-webp', webpClass: 'html.has-webp' }
-    )
-  })
-
-  it('should replace passed class with html tag v2', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.without-webp .c, body.no-js .c { background-image: url(./image.png) }' +
-        'body.has-webp .c { background-image: url(./image.webp) }',
-      { noWebpClass: 'html .without-webp', webpClass: 'html .has-webp' }
-    )
-  })
-
-  it('set rename function', () => {
-    run(
-      '.c { background: url(./image.png) }',
-      '.c { background: url(./image.png) }' +
-        'body.no-webp .c, body.no-js .c { background-image: url(./image.png) }' +
-        'body.webp .c { background-image: url(./image.png.webp) }',
-      {
-        rename: oldName => {
-          return oldName.replace(/\.(jpg|png)/gi, '.$1.webp')
-        }
-      }
-    )
-  })
+test('should add :global() scope when css modules enabled', () => {
+  run(
+    'a { background: url(./image.png) }',
+    'a { background: url(./image.png) }' +
+      'body:global(.no-webp) a, body:global(.no-js) a { background-image: url(./image.png) }' +
+      'body:global(.webp) a { background-image: url(./image.webp) }',
+    { modules: true }
+  )
 })
+
+test('should use passed classNames', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.without-webp .c, body.no-js .c { background-image: url(./image.png) }' +
+      'body.has-webp .c { background-image: url(./image.webp) }',
+    { noWebpClass: 'without-webp', webpClass: 'has-webp' }
+  )
+})
+
+test('should replace passed class with html tag v1', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.without-webp .c, body.no-js .c { background-image: url(./image.png) }' +
+      'body.has-webp .c { background-image: url(./image.webp) }',
+    { noWebpClass: 'html.without-webp', webpClass: 'html.has-webp' }
+  )
+})
+
+test('should replace passed class with html tag v2', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.without-webp .c, body.no-js .c { background-image: url(./image.png) }' +
+      'body.has-webp .c { background-image: url(./image.webp) }',
+    { noWebpClass: 'html .without-webp', webpClass: 'html .has-webp' }
+  )
+})
+
+test('set rename function', () => {
+  run(
+    '.c { background: url(./image.png) }',
+    '.c { background: url(./image.png) }' +
+      'body.no-webp .c, body.no-js .c { background-image: url(./image.png) }' +
+      'body.webp .c { background-image: url(./image.png.webp) }',
+    {
+      rename: oldName => {
+        return oldName.replace(/\.(jpg|png)/gi, '.$1.webp')
+      }
+    }
+  )
+})
+
+test.run()

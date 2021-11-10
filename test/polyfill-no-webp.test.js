@@ -1,6 +1,9 @@
+let { equal } = require('uvu/assert')
 let { delay } = require('nanodelay')
+let { test } = require('uvu')
+require('./setup-body')
 
-class Image {
+class BadImage {
   get src() {
     return this._src
   }
@@ -12,11 +15,17 @@ class Image {
     })
   }
 }
-global.Image = Image
 
-require('../polyfill')
-
-it('adds class to body', async () => {
-  await delay(100)
-  expect(document.body.className).toEqual('no-webp')
+test.before(() => {
+  delete require.cache[require.resolve('../polyfill')]
+  global.document.body.className = ''
+  global.Image = BadImage
 })
+
+test('adds class to body', async () => {
+  require('../polyfill')
+  await delay(100)
+  equal(document.body.className, 'no-webp')
+})
+
+test.run()

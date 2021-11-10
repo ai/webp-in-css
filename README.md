@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/webp-in-css/webp-logo.svg" align="right"
      alt="WebP logo" width="150" height="180">
 
-[PostCSS] plugin and tiny JS script (142 bytes) to use [WebP] in CSS `background`.
+[PostCSS] plugin and tiny JS script (184 bytes) to use [WebP] in CSS `background`.
 
 This tool will make your images [25% smaller] for Chrome, Firefox, and Edge.
 Safari will download the bigger JPEG/PNG image.
@@ -36,7 +36,7 @@ body.no-webp .logo, body.no-js .logo {
 ```
 
 If you want to use `addNoJs` option, you need manually set `no-js` class on `<body>`.
-Polyfill will remove this class, if JS is enabled in the browser. Polyfill should 
+Polyfill will remove this class, if JS is enabled in the browser. Polyfill should
 be inserted in the `<head>`, without `async` or `defer` attributes, before css.
 `addNoJs` option is enabled by default.
 
