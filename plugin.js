@@ -13,7 +13,15 @@ const DEFAULT_OPTIONS = {
 }
 
 module.exports = (opts = {}) => {
-  let { modules, noWebpClass, webpClass, addNoJs, noJsClass, rename, pattern } = {
+  let {
+    modules,
+    noWebpClass,
+    webpClass,
+    addNoJs,
+    noJsClass,
+    rename,
+    pattern
+  } = {
     ...DEFAULT_OPTIONS,
     ...opts
   }
