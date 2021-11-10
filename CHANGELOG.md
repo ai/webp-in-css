@@ -1,6 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.7
+* Added `check` options (by @taoliujun).
+* Added `format=webp` support (by @taoliujun).
+* Moved from `background` to `background-image` (by @taoliujun).
+
 ## 0.6
 * Removed Node.js 10 support.
 * Add no JS support (by @LambdaZed).
