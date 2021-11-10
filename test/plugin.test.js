@@ -40,15 +40,6 @@ test('should skip urls with [&?]format=webp', () => {
   )
 })
 
-// test('removes empty rule', () => {
-//   run(
-//     'a,b { background: url(./image.PNG) }',
-//     'body.no-webp a,body.no-webp b { background: url(./image.PNG) }' +
-//       'body.webp a,body.webp b { background: url(./image.webp) }',
-//     { addNoJs: false }
-//   )
-// })
-
 test('does not duplicate html tag', () => {
   run(
     'html[lang=en] .icon { background: url(./image.jpg) }',
@@ -219,6 +210,18 @@ test('set rename function', () => {
       rename: oldName => {
         return oldName.replace(/\.(jpg|png)/gi, '.$1.webp')
       }
+    }
+  )
+})
+
+test('set check function', () => {
+  run(
+    '.a { background: url(./image.png) }.b { background: url(./image.jpg) }',
+    '.a { background: url(./image.png) }.b { background: url(./image.jpg) }' +
+      'body.no-webp .b, body.no-js .b { background-image: url(./image.jpg) }' +
+      'body.webp .b { background-image: url(./image.webp) }',
+    {
+      check: decl => decl.value.includes('.jpg')
     }
   )
 })

@@ -163,9 +163,9 @@ module.exports = {
 * `rename` function: get a new file name from old name,
   like `(oldName: string) => string`,
   then `url(./image.png)` → `url(./image.png.webp)`.
-* `pattern` function: should return boolean if we need to change declaration’s
-  value, default:
+* `check` function: should return boolean if we need to change declaration,
+  default:
 
   ```js
-  value => /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(value)
+  decl => /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value)
   ```

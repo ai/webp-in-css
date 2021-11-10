@@ -4,24 +4,13 @@ const DEFAULT_OPTIONS = {
   webpClass: 'webp',
   addNoJs: true,
   noJsClass: 'no-js',
-  pattern: input => {
-    return /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(input)
-  },
-  rename: oldName => {
-    return oldName.replace(/\.(jpe?g|png)/gi, '.webp')
-  }
+  check: decl =>
+    /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value),
+  rename: oldName => oldName.replace(/\.(jpe?g|png)/gi, '.webp')
 }
 
 module.exports = (opts = {}) => {
-  let {
-    modules,
-    noWebpClass,
-    webpClass,
-    addNoJs,
-    noJsClass,
-    rename,
-    pattern
-  } = {
+  let { modules, noWebpClass, webpClass, addNoJs, noJsClass, rename, check } = {
     ...DEFAULT_OPTIONS,
     ...opts
   }
@@ -58,7 +47,7 @@ module.exports = (opts = {}) => {
   return {
     postcssPlugin: 'webp-in-css/plugin',
     Declaration(decl) {
-      if (pattern(decl.value)) {
+      if (check(decl)) {
         let rule = decl.parent
         if (rule.selector.includes(`.${removeHtmlPrefix(noWebpClass)}`)) return
         let webp = rule.cloneAfter()
