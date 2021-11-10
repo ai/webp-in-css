@@ -160,10 +160,12 @@ module.exports = {
 * `addNoJs` boolean: add `no-js` class to selector.
   `true` by default.
 * `noJsClass` string: class name for browser without JS support.
-* `rename` function: get a new file name from old name, like `(oldName: string) => string`, then `url(./image.png)` → `url(./image.png.webp)`.
-* `pattern` function: should return boolean, execute `rename` if return true, the paramter is css value like `url(yourPath/yourFile.png)`, default body is
-```javascript
-pattern: (input) => {
-  return /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(input)
-},
-```
+* `rename` function: get a new file name from old name,
+  like `(oldName: string) => string`,
+  then `url(./image.png)` → `url(./image.png.webp)`.
+* `pattern` function: should return boolean if we need to change declaration’s
+  value, default:
+
+  ```js
+  value => /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(value)
+  ```
