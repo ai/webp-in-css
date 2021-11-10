@@ -4,13 +4,24 @@ const DEFAULT_OPTIONS = {
   webpClass: 'webp',
   addNoJs: true,
   noJsClass: 'no-js',
+  pattern: input => {
+    return /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(input)
+  },
   rename: oldName => {
     return oldName.replace(/\.(jpe?g|png)/gi, '.webp')
   }
 }
 
 module.exports = (opts = {}) => {
-  let { modules, noWebpClass, webpClass, addNoJs, noJsClass, rename } = {
+  let {
+    modules,
+    noWebpClass,
+    webpClass,
+    addNoJs,
+    noJsClass,
+    rename,
+    pattern
+  } = {
     ...DEFAULT_OPTIONS,
     ...opts
   }
@@ -47,7 +58,7 @@ module.exports = (opts = {}) => {
   return {
     postcssPlugin: 'webp-in-css/plugin',
     Declaration(decl) {
-      if (/\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value)) {
+      if (pattern(decl.value)) {
         let rule = decl.parent
         if (rule.selector.includes(`.${removeHtmlPrefix(noWebpClass)}`)) return
         let webp = rule.cloneAfter()
@@ -61,6 +72,7 @@ module.exports = (opts = {}) => {
             Object.prototype.toString.call(rename) === '[object Function]'
           ) {
             i.value = rename(i.value)
+            i.prop = 'background-image'
           }
         })
         let noWebp = rule.cloneAfter()
@@ -68,8 +80,9 @@ module.exports = (opts = {}) => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
         })
         noWebp.selectors = noWebp.selectors.map(i => addClass(i, noWebpClass))
-        decl.remove()
-        if (rule.nodes.length === 0) rule.remove()
+        noWebp.each(i => {
+          i.prop = 'background-image'
+        })
       }
     }
   }

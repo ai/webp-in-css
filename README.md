@@ -25,12 +25,13 @@ and PostCSS plugin will generate:
 .logo {
   width: 30px;
   height: 30px;
+  background: url(/logo.webp) no-repeat;
 }
 body.webp .logo {
-  background: url(/logo.webp);
+  background-image: url(/logo.webp);
 }
 body.no-webp .logo, body.no-js .logo {
-  background: url(/logo.png);
+  background-image: url(/logo.png);
 }
 ```
 
@@ -160,3 +161,9 @@ module.exports = {
   `true` by default.
 * `noJsClass` string: class name for browser without JS support.
 * `rename` function: get a new file name from old name, like `(oldName: string) => string`, then `url(./image.png)` → `url(./image.png.webp)`.
+* `pattern` function: should return boolean, execute `rename` if return true, the paramter is css value like `url(yourPath/yourFile.png)`, default body is
+```javascript
+pattern: (input) => {
+  return /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(input)
+},
+```
