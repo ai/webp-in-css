@@ -92,9 +92,12 @@ Since JS script is very small (142 bytes), the best way for landings
 is to inline it to HTML:
 
 ```diff html
-+   <script><%= readFile('node_modules/webp-in-css/polyfill.js') %></script>
   </head>
+  <body>
++   <script><%= readFile('node_modules/webp-in-css/polyfill.js') %></script>
 ```
+
+Note, that you need to put `<script>` inside `<body>`, not `<head>`.
 
 **Step 6:** check do you use PostCSS already in your bundler.
 You can check `postcss.config.js` in the project root,
