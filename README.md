@@ -3,7 +3,7 @@
 <img src="https://ai.github.io/webp-in-css/webp-logo.svg" align="right"
      alt="WebP logo" width="150" height="180">
 
-[PostCSS] plugin and tiny JS script (184 bytes) to use [WebP] in CSS `background`.
+[PostCSS] plugin and tiny JS script (175 bytes) to use [WebP] in CSS `background`.
 
 This tool will make your images [25% smaller] for Chrome, Firefox, and Edge.
 Safari will download the bigger JPEG/PNG image.

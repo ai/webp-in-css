@@ -1,7 +1,7 @@
 {
   "name": "webp-in-css",
   "version": "0.7.0",
-  "description": "PostCSS plugin and tiny JS script (184 bytes) to use WebP in CSS background",
+  "description": "PostCSS plugin and tiny JS script (175 bytes) to use WebP in CSS background",
   "keywords": [
     "webp",
     "postcss-plugin",
@@ -31,24 +31,24 @@
   },
   "devDependencies": {
     "@logux/eslint-config": "^46.1.0",
-    "@size-limit/preset-small-lib": "^6.0.4",
+    "@size-limit/preset-small-lib": "^7.0.3",
     "c8": "^7.10.0",
     "clean-publish": "^3.4.3",
-    "eslint": "^8.2.0",
+    "eslint": "^8.3.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prefer-let": "^3.0.1",
     "eslint-plugin-promise": "^5.1.1",
     "nanodelay": "^1.0.8",
-    "postcss": "^8.3.11",
-    "size-limit": "^6.0.4",
+    "postcss": "^8.4.4",
+    "size-limit": "^7.0.3",
     "uvu": "^0.5.2"
   },
   "size-limit": [
     {
       "path": "polyfill.js",
-      "limit": "184 B"
+      "limit": "175 B"
     }
   ],
   "eslintConfig": {
@@ -65,13 +65,12 @@
     "singleQuote": true,
     "trailingComma": "none"
   },
-  "jest": {
-    "testEnvironment": "jsdom",
-    "coverageThreshold": {
-      "global": {
-        "statements": 100
-      }
-    }
+  "c8": {
+    "exclude": [
+      "**/*.test.*"
+    ],
+    "lines": 100,
+    "check-coverage": true
   },
   "clean-publish": {
     "cleanDocs": true
