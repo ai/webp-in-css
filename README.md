@@ -163,12 +163,18 @@ module.exports = {
 * `addNoJs` boolean: add `no-js` class to selector.
   `true` by default.
 * `noJsClass` string: class name for browser without JS support.
-* `rename` function: get a new file name from old name,
-  like `(oldName: string) => string`,
-  then `url(./image.png)` → `url(./image.png.webp)`.
 * `check` function: should return boolean if we need to change declaration,
   default:
 
   ```js
   decl => /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value)
+  ```
+* `rename` function: get a new file name from old name,
+  like `(oldName: string) => string`,
+  then `url(./image.png)` → `url(./image.png.webp)`.
+  Often you will need to change `check` option too.
+  
+  ```js
+  check: decl => decl.value.includes("as=webp"),
+  rename: url => url.replace(".jpg", ".jpg?as=webp")
   ```
