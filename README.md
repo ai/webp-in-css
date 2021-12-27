@@ -175,6 +175,6 @@ module.exports = {
   Often you will need to change `check` option too.
   
   ```js
-  check: decl => decl.value.includes("as=webp"),
+  check: decl => /\.jpg/.test(decl.value) && !decl.value.includes("as=webp"),
   rename: url => url.replace(".jpg", ".jpg?as=webp")
   ```
