@@ -76,13 +76,7 @@ Save WebP images in the same places of JPEG/PNG images:
 + </picture>
 ```
 
-**Step 4:** install `webp-in-css`. For npm use:
-
-```sh
-npm install --save-dev webp-in-css
-```
-
-**Step 5:** add JS script to your client-side JS bundle:
+**Step 4:** add JS script to your client-side JS bundle:
 
 ```diff js
 + import 'webp-in-css/polyfill'
@@ -99,7 +93,7 @@ is to inline it to HTML:
 
 Note, that you need to put `<script>` inside `<body>`, not `<head>`.
 
-**Step 6:** check do you use PostCSS already in your bundler.
+**Step 5:** check do you use PostCSS already in your bundler.
 You can check `postcss.config.js` in the project root,
 `"postcss"` section in `package.json` or `postcss` in bundle config.
 
@@ -110,7 +104,7 @@ If you don’t have it already, add PostCSS to your bundle:
   It already has PostCSS support.
 * For Gulp check [gulp-postcss] docs.
 
-**Step 7:** Add `webp-in-css/plugin` to PostCSS plugins:
+**Step 6:** Add `webp-in-css/plugin` to PostCSS plugins:
 
 ```diff js
 module.exports = {
