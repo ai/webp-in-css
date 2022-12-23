@@ -1,3 +1,5 @@
+const selectorParser = require('postcss-selector-parser');
+
 const DEFAULT_OPTIONS = {
   modules: false,
   noWebpClass: 'no-webp',
@@ -19,31 +21,101 @@ module.exports = (opts = {}) => {
     return className.replace(/html ?\./, '')
   }
 
-  function addClass(selector, className) {
-    let generatedNoJsClass
+  /**
+   * Add .webp and .no-webp classes
+   * @param {Rule} rule - PostCSS Rule
+   * @param {string} className - class name to add
+   */
+  function addClass(rule, className) {
     let initialClassName = className
+    let internalNoWebpClass = noWebpClass.includes('html') ? removeHtmlPrefix(noWebpClass) : noWebpClass
     if (className.includes('html')) {
       className = removeHtmlPrefix(className)
     }
-    if (modules) {
-      className = `:global(.${className})`
-      generatedNoJsClass = `:global(.${noJsClass})`
-    } else {
-      className = `.${className}`
-      generatedNoJsClass = `.${noJsClass}`
+
+    /**
+     * @param {parser.Container} selectors
+     * @param {string} targetClassName
+     */
+    let transformWithClass = (selectors, targetClassName) => {
+      selectors.each(selector => {
+        let isBodyFound = false
+        let isHtmlFound = false
+
+        // detect body & html, add class to body
+        selector.walkTags(currentSelector => {
+          if (currentSelector.value === 'body') {
+            isBodyFound = true
+            currentSelector.parent.insertAfter(currentSelector, selectorParser.className({value: targetClassName}))
+          }
+          else if (currentSelector.value === 'html') {
+            isHtmlFound = true
+          }
+        })
+
+        let bodyCombinator = selectorParser.combinator({value: ' '})
+        let bodyTag = selectorParser.tag({value: 'body'})
+        let bodyClass = selectorParser.className({value: targetClassName})
+
+        // html found, no body tags
+        if (isHtmlFound && !isBodyFound) {
+          let isHtmlFoundHere = false
+          selector.walk(currentSelector => {
+            if (currentSelector.value === 'html') {
+              isHtmlFoundHere = true
+            }
+            else if (isHtmlFoundHere && currentSelector.type === 'combinator') {
+              let selectorParent = currentSelector.parent
+              selectorParent.insertAfter(currentSelector, bodyTag)
+              selectorParent.insertAfter(bodyTag, bodyClass)
+              selectorParent.insertAfter(bodyClass, bodyCombinator)
+            }
+          })
+        }
+        else if (!isHtmlFound && !isBodyFound) {
+          if (selector.first.spaces.before === ' ') {
+            bodyTag.spaces.before = ' '
+          }
+          selector.first.spaces.before = ' '
+          selector.prepend(bodyClass)
+          selector.prepend(bodyTag)
+        }
+      })
+
+
+      if (addNoJs && initialClassName === noWebpClass) {
+        selectors.each(selector => {
+          let selectorClone = selector.clone()
+          selectorClone.walk(subSelector => {
+            if (subSelector.type === 'class' && subSelector.value === internalNoWebpClass) {
+              subSelector.value = noJsClass
+            }
+          })
+          selectorClone.first.spaces.before = ' '
+          selectors.insertAfter(selector, selectorClone)
+        })
+      }
+
+      if (modules) {
+        let validClass = [webpClass, internalNoWebpClass, noJsClass]
+        selectors.each(selector => {
+          selector.walk((subSelector) => {
+            if (subSelector.type === 'class' && validClass.includes(subSelector.value)) {
+              let newPseudo = selectorParser.pseudo({value: ':global(.' + subSelector.value + ')'})
+              subSelector.replaceWith(newPseudo)
+            }
+          })
+        })
+      }
     }
-    if (selector.includes('html')) {
-      selector = selector.replace(/html[^ ]*/, `$& body${className}`)
-    } else {
-      selector = `body${className} ` + selector
+
+    let transform = selectors => {
+      transformWithClass(selectors, className)
     }
-    if (addNoJs && initialClassName === noWebpClass) {
-      selector +=
-        ', ' +
-        selector.split(`body${className}`).join(`body${generatedNoJsClass}`)
-    }
-    return selector
+
+    return selectorParser(transform).processSync(rule.selector)
   }
+
   return {
     postcssPlugin: 'webp-in-css/plugin',
     Declaration(decl) {
@@ -54,7 +126,7 @@ module.exports = (opts = {}) => {
         webp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
         })
-        webp.selectors = webp.selectors.map(i => addClass(i, webpClass))
+        webp.selector = addClass(webp, webpClass)
         webp.each(i => {
           if (
             rename &&
@@ -68,7 +140,7 @@ module.exports = (opts = {}) => {
         noWebp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
         })
-        noWebp.selectors = noWebp.selectors.map(i => addClass(i, noWebpClass))
+        noWebp.selector = addClass(noWebp, noWebpClass)
         noWebp.each(i => {
           i.prop = 'background-image'
         })

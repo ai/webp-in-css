@@ -226,4 +226,16 @@ test('set check function', () => {
   )
 })
 
+test('adds classes and WebP link to body', () => {
+  run(
+    '@media screen { body, body.test, html body[data-test="1"], html body .test2 { color: black; background: url(./image.jpg) } }',
+    '@media screen { ' +
+      'body, body.test, html body[data-test="1"], html body .test2 { color: black; background: url(./image.jpg) } ' +
+      'body.no-webp, body.no-webp.test, html body.no-webp[data-test="1"], html body.no-webp .test2 { background-image: url(./image.jpg) } ' +
+      'body.webp, body.webp.test, html body.webp[data-test="1"], html body.webp .test2 { background-image: url(./image.webp) } ' +
+      '}',
+    { addNoJs: false }
+  )
+})
+
 test.run()
