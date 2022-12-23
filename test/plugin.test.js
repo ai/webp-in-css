@@ -238,4 +238,38 @@ test('adds classes and WebP link to body', () => {
   )
 })
 
+test('adds classes and WebP link, complex background', () => {
+  run(
+    '@media screen { a, b { color: black; background: url(\'./image().png\') 50% 50% / cover #FFF no-repeat; } }',
+    '@media screen { ' +
+      'a, b { color: black; background: url(\'./image().png\') 50% 50% / cover #FFF no-repeat; } ' +
+      'body.no-webp a, body.no-webp b { background-image: url(\'./image().png\'); } ' +
+      'body.webp a, body.webp b { background-image: url(\'./image().webp\'); } ' +
+      '}',
+    { addNoJs: false }
+  )
+})
+
+test('adds classes and WebP link, image-set', () => {
+  run(
+    '@media screen { a, b { color: black; background: image-set(url("image.jpg") 1x, url("image.jpg") 2x) 50% 50% / cover #FFF no-repeat; } }',
+    '@media screen { ' +
+      'a, b { color: black; background: image-set(url("image.jpg") 1x, url("image.jpg") 2x) 50% 50% / cover #FFF no-repeat; } ' +
+      'body.no-webp a, body.no-webp b { background-image: image-set(url("image.jpg") 1x, url("image.jpg") 2x); } ' +
+      'body.webp a, body.webp b { background-image: image-set(url("image.webp") 1x, url("image.webp") 2x); } ' +
+      '}',
+    { addNoJs: false }
+  )
+})
+
+test('adds classes and WebP link, image-set with type', () => {
+  run(
+    '@media screen { a, b { color: black; background: image-set(url("image.avif") type("image/avif"), url("image.jpg") type("image/jpeg")) 50% 50% / cover #FFF no-repeat; } }',
+    '@media screen { ' +
+      'a, b { color: black; background: image-set(url("image.avif") type("image/avif"), url("image.jpg") type("image/jpeg")) 50% 50% / cover #FFF no-repeat; } ' +
+      '}',
+    { addNoJs: false }
+  )
+})
+
 test.run()

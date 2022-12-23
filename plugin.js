@@ -22,6 +22,20 @@ module.exports = (opts = {}) => {
   }
 
   /**
+   * Process background value to remove unnecessary parts
+   * @param {string} value - background value
+   */
+  function processBackgroundValue(value) {
+    // check for image-set
+    // https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set
+    if (value.includes('image-set')) {
+      return /(image-set.*\))/gm.exec(value)[0] ?? value
+    } else {
+      return /(url.*\))/gm.exec(value)[0] ?? value
+    }
+  }
+  
+  /**
    * Add .webp and .no-webp classes
    * @param {Rule} rule - PostCSS Rule
    * @param {string} className - class name to add
@@ -122,6 +136,10 @@ module.exports = (opts = {}) => {
       if (check(decl)) {
         let rule = decl.parent
         if (rule.selector.includes(`.${removeHtmlPrefix(noWebpClass)}`)) return
+
+        // check for image-set with types & skip processing
+        if (decl.value.includes('image-set') && decl.value.includes(') type(')) return
+
         let webp = rule.cloneAfter()
         webp.each(i => {
           if (i.prop !== decl.prop && i.value !== decl.value) i.remove()
@@ -135,6 +153,7 @@ module.exports = (opts = {}) => {
             i.value = rename(i.value)
             i.prop = 'background-image'
           }
+          i.value = processBackgroundValue(i.value)
         })
         let noWebp = rule.cloneAfter()
         noWebp.each(i => {
@@ -142,6 +161,7 @@ module.exports = (opts = {}) => {
         })
         noWebp.selector = addClass(noWebp, noWebpClass)
         noWebp.each(i => {
+          i.value = processBackgroundValue(i.value)
           i.prop = 'background-image'
         })
       }
