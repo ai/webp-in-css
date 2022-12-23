@@ -1,25 +1,31 @@
 name: Test
-"on":
-  push: null
-  pull_request: null
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+permissions:
+  contents: read
 jobs:
   full:
-    name: Node.js 17 Full
+    name: Node.js Latest Full
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
       - name: Install Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: 19
-          cache: yarn
+          cache: pnpm
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
       - name: Run tests
-        run: yarn test
-        env:
-          FORCE_COLOR: 2
+        run: pnpm test
   short:
     runs-on: ubuntu-latest
     strategy:
@@ -31,15 +37,17 @@ jobs:
     name: Node.js ${{ matrix.node-version }} Quick
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: latest
       - name: Install Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: yarn
+          cache: pnpm
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install --frozen-lockfile --ignore-scripts
       - name: Run unit tests
-        run: yarn unit
-        env:
-          FORCE_COLOR: 2
+        run: pnpm unit
