@@ -74,5 +74,8 @@
   },
   "clean-publish": {
     "cleanDocs": true
+  },
+  "dependencies": {
+    "postcss-selector-parser": "^6.0.11"
   }
 }
