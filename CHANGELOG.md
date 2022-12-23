@@ -1,6 +1,11 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.8
+* Replace only URL part of `background` (by @Razunter).
+* Improved selector rewriting (by @Razunter).
+* Removed Node.js 12 support.
+
 ## 0.7
 * Added `check` options (by @taoliujun).
 * Added `format=webp` support (by @taoliujun).
