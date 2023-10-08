@@ -56,7 +56,7 @@ test('should add :global() scope when css modules enabled', () => {
     'a { background: url(./image.png) }' +
       'body:global(.no-webp) a { background-image: url(./image.png) }' +
       'body:global(.webp) a { background-image: url(./image.webp) }',
-    { modules: true, addNoJs: false }
+    { addNoJs: false, modules: true }
   )
 })
 
@@ -66,7 +66,7 @@ test('should use passed classNames', () => {
     '.c { background: url(./image.png) }' +
       'body.without-webp .c { background-image: url(./image.png) }' +
       'body.has-webp .c { background-image: url(./image.webp) }',
-    { noWebpClass: 'without-webp', webpClass: 'has-webp', addNoJs: false }
+    { addNoJs: false, noWebpClass: 'without-webp', webpClass: 'has-webp' }
   )
 })
 
@@ -77,9 +77,9 @@ test('should replace passed class with html tag v1', () => {
       'body.without-webp .c { background-image: url(./image.png) }' +
       'body.has-webp .c { background-image: url(./image.webp) }',
     {
+      addNoJs: false,
       noWebpClass: 'html.without-webp',
-      webpClass: 'html.has-webp',
-      addNoJs: false
+      webpClass: 'html.has-webp'
     }
   )
 })
@@ -91,9 +91,9 @@ test('should replace passed class with html tag v2', () => {
       'body.without-webp .c { background-image: url(./image.png) }' +
       'body.has-webp .c { background-image: url(./image.webp) }',
     {
+      addNoJs: false,
       noWebpClass: 'html .without-webp',
-      webpClass: 'html .has-webp',
-      addNoJs: false
+      webpClass: 'html .has-webp'
     }
   )
 })

@@ -1,18 +1,18 @@
 const selectorParser = require('postcss-selector-parser');
 
 const DEFAULT_OPTIONS = {
-  modules: false,
-  noWebpClass: 'no-webp',
-  webpClass: 'webp',
   addNoJs: true,
-  noJsClass: 'no-js',
   check: decl =>
     /\.(jpe?g|png)(?!(\.webp|.*[&?]format=webp))/i.test(decl.value),
-  rename: oldName => oldName.replace(/\.(jpe?g|png)/gi, '.webp')
+  modules: false,
+  noJsClass: 'no-js',
+  noWebpClass: 'no-webp',
+  rename: oldName => oldName.replace(/\.(jpe?g|png)/gi, '.webp'),
+  webpClass: 'webp'
 }
 
 module.exports = (opts = {}) => {
-  let { modules, noWebpClass, webpClass, addNoJs, noJsClass, rename, check } = {
+  let { addNoJs, check, modules, noJsClass, noWebpClass, rename, webpClass } = {
     ...DEFAULT_OPTIONS,
     ...opts
   }
@@ -131,7 +131,6 @@ module.exports = (opts = {}) => {
   }
 
   return {
-    postcssPlugin: 'webp-in-css/plugin',
     Declaration(decl) {
       if (check(decl)) {
         let rule = decl.parent
@@ -165,7 +164,8 @@ module.exports = (opts = {}) => {
           i.prop = 'background-image'
         })
       }
-    }
+    },
+    postcssPlugin: 'webp-in-css/plugin'
   }
 }
 module.exports.postcss = true

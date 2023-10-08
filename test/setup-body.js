@@ -1,6 +1,5 @@
 global.document = {
   body: {
-    className: '',
     classList: {
       add(cls) {
         global.document.body.className += cls
@@ -11,6 +10,7 @@ global.document = {
           .filter(i => i !== cls)
           .join(' ')
       }
-    }
+    },
+    className: ''
   }
 }
