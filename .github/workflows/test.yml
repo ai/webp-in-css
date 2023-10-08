@@ -33,11 +33,10 @@ jobs:
         node-version:
           - 18
           - 16
-          - 14
     name: Node.js ${{ matrix.node-version }} Quick
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -56,9 +55,9 @@ jobs:
     name: Node.js 14 Quick
     steps:
       - name: Checkout the repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Install pnpm
-        uses: pnpm/action-setup@v1
+        uses: pnpm/action-setup@v2
         with:
           version: 7
       - name: Install Node.js 14
