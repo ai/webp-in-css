@@ -271,3 +271,11 @@ test('adds classes and WebP link, image-set with type', () => {
     { addNoJs: false }
   )
 })
+
+test('adds classes and WebP link, image-set with type', () => {
+  run(
+    '.icon { background: url("../img/bg-frame.png") no-repeat; background: none; }',
+    '.icon { background: url("../img/bg-frame.png") no-repeat; background: none; }body.no-webp .icon { background-image: url("../img/bg-frame.png"); background-image: none; }body.webp .icon { background-image: url("../img/bg-frame.webp"); background-image: none; }',
+    { addNoJs: false }
+  )
+})
