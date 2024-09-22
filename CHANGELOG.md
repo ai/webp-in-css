@@ -1,6 +1,10 @@
 # Change Log
 This project adheres to [Semantic Versioning](http://semver.org/).
 
+## 0.9.0
+* Fixed multiple background values support (by @katozaaaa).
+* Removed Node.js 16 and 14 support.
+
 ## 0.8
 * Replace only URL part of `background` (by @Razunter).
 * Improved selector rewriting (by @Razunter).
