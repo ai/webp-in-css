@@ -23,7 +23,7 @@
     "test": "pnpm run /^test:/"
   },
   "engines": {
-    "node": ">=14.0"
+    "node": ">=18.0"
   },
   "funding": {
     "type": "opencollective",
