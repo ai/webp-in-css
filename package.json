@@ -16,7 +16,6 @@
     "url": "https://github.com/ai/webp-in-css/issues"
   },
   "scripts": {
-    "unit": "node --test test/*.test.js",
     "test:coverage": "c8 node --test test/*.test.js",
     "test:lint": "eslint .",
     "test:size": "size-limit",
