@@ -28,11 +28,16 @@ module.exports = (opts = {}) => {
   function processBackgroundValue(value) {
     // check for image-set
     // https://developer.mozilla.org/en-US/docs/Web/CSS/image/image-set
-    if (value.includes('image-set')) {
-      return /(image-set.*\))/gm.exec(value)[0] ?? value
-    } else {
-      return /(url.*\))/gm.exec(value)[0] ?? value
+    let clearValue = 
+      value.includes('image-set') ? 
+      /(image-set.*\))/gm.exec(value) :
+      /(url.*\))/gm.exec(value)
+
+    if (!clearValue) {
+      return value;
     }
+
+    return clearValue[0] ?? value;
   }
   
   /**
