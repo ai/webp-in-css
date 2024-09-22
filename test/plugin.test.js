@@ -1,6 +1,6 @@
+let { equal } = require('node:assert')
+let { test } = require('node:test')
 let postcss = require('postcss')
-let { test } = require('uvu')
-let { equal } = require('uvu/assert')
 
 let plugin = require('../plugin')
 
@@ -240,11 +240,11 @@ test('adds classes and WebP link to body', () => {
 
 test('adds classes and WebP link, complex background', () => {
   run(
-    '@media screen { a, b { color: black; background: url(\'./image().png\') 50% 50% / cover #FFF no-repeat; } }',
+    "@media screen { a, b { color: black; background: url('./image().png') 50% 50% / cover #FFF no-repeat; } }",
     '@media screen { ' +
-      'a, b { color: black; background: url(\'./image().png\') 50% 50% / cover #FFF no-repeat; } ' +
-      'body.no-webp a, body.no-webp b { background-image: url(\'./image().png\'); } ' +
-      'body.webp a, body.webp b { background-image: url(\'./image().webp\'); } ' +
+      "a, b { color: black; background: url('./image().png') 50% 50% / cover #FFF no-repeat; } " +
+      "body.no-webp a, body.no-webp b { background-image: url('./image().png'); } " +
+      "body.webp a, body.webp b { background-image: url('./image().webp'); } " +
       '}',
     { addNoJs: false }
   )
@@ -271,5 +271,3 @@ test('adds classes and WebP link, image-set with type', () => {
     { addNoJs: false }
   )
 })
-
-test.run()

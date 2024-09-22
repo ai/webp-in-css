@@ -1,6 +1,6 @@
-let { delay } = require('nanodelay')
-let { test } = require('uvu')
-let { equal } = require('uvu/assert')
+let { equal } = require('node:assert')
+let { test } = require('node:test')
+let { setTimeout } = require('node:timers/promises')
 require('./setup-body')
 
 class GoodImage {
@@ -10,7 +10,7 @@ class GoodImage {
 
   set src(value) {
     this._src = value
-    delay(1).then(() => {
+    setTimeout(1).then(() => {
       this.height = 1
       this.onload()
     })
@@ -25,7 +25,7 @@ test.before(() => {
 
 test('adds class to body', async () => {
   require('../polyfill')
-  await delay(100)
+  await setTimeout(100)
   equal(document.body.className, 'webp')
 })
 

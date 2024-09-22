@@ -16,8 +16,8 @@
     "url": "https://github.com/ai/webp-in-css/issues"
   },
   "scripts": {
-    "unit": "uvu . '\\.test\\.js$'",
-    "test:coverage": "c8 pnpm unit",
+    "unit": "node --test test/*.test.js",
+    "test:coverage": "c8 node --test test/*.test.js",
     "test:lint": "eslint .",
     "test:size": "size-limit",
     "test": "pnpm run /^test:/"
@@ -41,15 +41,13 @@
     "c8": "^10.1.2",
     "clean-publish": "^5.0.0",
     "eslint": "^9.11.0",
-    "nanodelay": "^1.0.8",
     "postcss": "^8.4.47",
-    "size-limit": "^11.1.5",
-    "uvu": "^0.5.6"
+    "size-limit": "^11.1.5"
   },
   "size-limit": [
     {
       "path": "polyfill.js",
-      "limit": "175 B"
+      "limit": "145 B"
     }
   ],
   "prettier": {
