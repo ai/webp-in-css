@@ -1,6 +1,6 @@
-let { equal } = require('uvu/assert')
 let { delay } = require('nanodelay')
 let { test } = require('uvu')
+let { equal } = require('uvu/assert')
 require('./setup-body')
 
 class GoodImage {
