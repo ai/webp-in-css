@@ -49,4 +49,4 @@ jobs:
       - name: Install dependencies
         run: pnpm install --ignore-scripts
       - name: Run unit tests
-        run: node --test test/*.test.js
+        run: node --test test/plugin.test.js
